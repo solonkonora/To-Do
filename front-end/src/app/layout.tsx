@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={fontSans.className}>
         <UserAuthGuardProvider> {children} </UserAuthGuardProvider>
       </body>
     </html>
