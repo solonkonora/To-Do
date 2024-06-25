@@ -1,26 +1,28 @@
 ### START APP
 
 - To start application, run
+
     ```bash
-        $ npm run dev # to start development server
+        npm run dev # to start development server
     ```
 
 ## API DOCS
-_base_url : http://localhost:8080_
+
+_base_url : <http://localhost:8080>_
 
 - Available routes
-    - [Base Route](#base-route)
+  - [Base Route](#base-route)
 
-    - [Authentication](#authentication)
-        - [Singup](#sign-up)
-        - [login](#login)
-        - [Get Current User](#get-current-user)
+  - [Authentication](#authentication)
+    - [Singup](#sign-up)
+    - [login](#login)
+    - [Get Current User](#get-current-user)
 
-    - [Todos](#todos)
-        - [Get user Todos](#get-user-todos)
-
+  - [Todos](#todos)
+    - [Get user Todos](#get-user-todo)
 
 - ### Base Route
+
         - Index Route
             ```bash
                 Get("/")
@@ -28,9 +30,10 @@ _base_url : http://localhost:8080_
                 Welcome to our APi. ##ALMIGHTY_REBASE_DEVS
             ```
 
-
 - ### AUTHENTICATION
-    - #### Sign Up
+
+- #### Sign Up
+
         ```bash
             Post("/signup")
             - # body: require
@@ -45,7 +48,8 @@ _base_url : http://localhost:8080_
                 }
         ```
 
-    - #### Login
+- #### Login
+
         ```bash
             Post("/login")
             - # body: require
@@ -60,7 +64,8 @@ _base_url : http://localhost:8080_
                 }
         ```
 
-    - #### Get Current User
+- #### Get Current User
+
         ```bash
             Get("/current-user")
             - # header: require
@@ -71,14 +76,16 @@ _base_url : http://localhost:8080_
                 {
                     message: "User Retrieved",
                     data: {
-                        "_id": "mongo_id",
+                        "id": "<mongo_id>",
                         "username": "test_username",
                     }
                 }
         ```
 
 - ### Todos
-    - #### Get User Todos
+
+- #### Get User Todo
+
         ```bash
             Get("/todos/user")
             - # body: require
@@ -87,6 +94,19 @@ _base_url : http://localhost:8080_
                 }
             - # response: status - 200
                 {
-                    //
+                    "message": "Todo Created",
+                    data: {
+                        "id": "<mongo_id>",
+                        "userId": "<mongo_id>",
+                        "todo": "lorem ipsume bla bla bla",
+                        "priority": {
+                            "enum": ["High", "Medium", "Low"],
+                            "default": "Medium",
+                        },
+                        "status": {
+                            "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                            "default": "To Do",
+                        }
+                    }
                 }
         ```

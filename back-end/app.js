@@ -14,5 +14,5 @@ app.use("/auth", authRouter);
 app.use("/todos", todoRouter);
 
 app.listen(PORT, () => {
-    console.log(`\nListening on port ${PORT}\n`)
+    console.log(`\nListening on http://localhost:${PORT}\n`)
 });

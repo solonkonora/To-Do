@@ -1,4 +1,5 @@
 import db from "../conection/mongo.js"
+import mongoose from "mongoose";
 
 const Schema = db.Schema;
 
@@ -21,11 +22,6 @@ const todoSchema = new Schema(
             type: String,
             enum: ['To Do', 'In Progress', 'Completed', 'Blocked'],
             default: 'To Do',
-        },
-        notes: {
-            type: String,
-            trim: true,
-            default: ""
         }
     },
     {
