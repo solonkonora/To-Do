@@ -11,6 +11,8 @@ const userSchema = new Schema ({
             type:String,
             required:true
         }
+    }, {
+      timestamps: true
     });
 
 const UserSchema = db.model("user", userSchema);
