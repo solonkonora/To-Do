@@ -20,6 +20,8 @@ _base_url : <http://localhost:8080>_
 
   - [Todos](#todos)
     - [Get user Todos](#get-user-todo)
+    - [Create User Todos](#create-user-todo)
+    - [Query Todos](#query-todos)
 
 - ### Base Route
 
@@ -84,29 +86,99 @@ _base_url : <http://localhost:8080>_
 
 - ### Todos
 
-- #### Get User Todo
+    - #### Create User Todo
 
-        ```bash
-            Get("/todos/user")
-            - # body: require
-                {
-                    "username": "test_username"
-                }
-            - # response: status - 200
-                {
-                    "message": "Todo Created",
-                    data: {
-                        "id": "<mongo_id>",
+            ```bash
+                Post("/todos/")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # body: required
+                    {
                         "userId": "<mongo_id>",
-                        "todo": "lorem ipsume bla bla bla",
-                        "priority": {
-                            "enum": ["High", "Medium", "Low"],
-                            "default": "Medium",
-                        },
-                        "status": {
-                            "enum": ["To Do", "In Progress", "Completed", "Blocked"],
-                            "default": "To Do",
+                        "todo": "lorem ipsum bla bla bla",
+                        "priority": "Medium", # ["High", "Medium", "Low"], default is "Medium"
+                        "status": "To Do", # ["To Do", "In Progress", "Completed", "Blocked"], default is "To Do"
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todo Retrieved",
+                        data: {
+                            "id": "<mongo_id>",
+                            "userId": "<mongo_id>",
+                            "todo": "lorem ipsum bla bla bla",
+                            "priority": "Medium",
+                            "status": "To Do",
+                            "createdAt": "Date in ISO standard",
+                            "updatedAt": "Date in ISO standard",
                         }
                     }
-                }
-        ```
+            ```
+
+    - #### Get User Todo
+
+            ```bash
+                Get("/todos/<todo_id>")
+                - # header: require
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todo Created",
+                        data: {
+                            "id": "<mongo_id>",
+                            "userId": "<mongo_id>",
+                            "todo": "lorem ipsum bla bla bla",
+                            "priority": {
+                                "enum": ["High", "Medium", "Low"],
+                                "default": "Medium",
+                            },
+                            "status": {
+                                "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                                "default": "To Do",
+                            },
+                            "createdAt": "Date in ISO standard",
+                            "updatedAt": "Date in ISO standard",
+                        }
+                    }
+            ```
+
+    - #### Query Todos
+
+            ```bash
+                Get("/todos/")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # Query: requires at least on of these properties
+                    {
+                        "todo": "<matching_the_todo_itself>",
+                        "priority": "", # ["High", "Medium", "Low"],
+                        "status": "", # ["To Do", "In Progress", "Completed", "Blocked"],
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todos Retrieved",
+                        "total": 1,
+                        "data": [
+                            {
+                                "id": "<mongo_id>",
+                                "userId": "<mongo_id>",
+                                "todo": "lorem ipsum bla bla bla",
+                                "priority": {
+                                    "enum": ["High", "Medium", "Low"],
+                                    "default": "Medium",
+                                },
+                                "status": {
+                                    "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                                    "default": "To Do",
+                                },
+                                "createdAt": "Date in ISO standard",
+                                "updatedAt": "Date in ISO standard",
+                            }
+                        ]
+                    }
+            ```

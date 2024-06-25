@@ -15,12 +15,8 @@ export const TodoService = {
     Blocked: "Blocked",
   },
 
-  getUserTodos(userId, todoQuery = {}) {
-    let _query = { userId };
-
-    if (todoQuery) _query = { userId, ...todoQuery };
-
-    return TodoSchema.find(_query)
+  createTodo(data) {
+    return TodoSchema.create({ ...data })
       .then(SchemaTransformer);
   },
 
@@ -29,8 +25,21 @@ export const TodoService = {
       .then(SchemaTransformer);
   },
 
-  createTodo(data) {
-    return TodoSchema.create({ ...data })
+  queryUserTodo(userId, todoQuery = {}) {
+    let _query = { userId };
+
+    if (todoQuery) _query = { userId, ...todoQuery };
+
+    return TodoSchema.findOne(_query)
+      .then(SchemaTransformer);
+  },
+
+  queryUserTodos(userId, todoQuery = {}) {
+    let _query = { userId };
+
+    if (todoQuery) _query = { userId, ...todoQuery };
+
+    return TodoSchema.find(_query)
       .then(SchemaTransformer);
   },
 }
