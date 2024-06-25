@@ -4,13 +4,29 @@ const Schema = db.Schema;
 
 const todoSchema = new Schema(
     {
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user',
         },
-        todo: "string",
-        required: true,
+        todo: {
+            type: String,
+            trim: true,
+        },
+        priority: {
+            type: String,
+            enum: ['High', 'Medium', 'Low'],
+            default: 'Medium',
+        },
+        status: {
+            type: String,
+            enum: ['To Do', 'In Progress', 'Completed', 'Blocked'],
+            default: 'To Do',
+        },
+        notes: {
+            type: String,
+            trim: true,
+            default: ""
+        }
     },
     {
         timestamps: true
