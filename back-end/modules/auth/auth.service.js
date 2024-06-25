@@ -24,6 +24,10 @@ export const AuthService = {
   },
 
   jwtVerifyUser(token) {
-    return jwt.verify(token, JWT_SECRET);
+    try {
+      return jwt.verify(token, JWT_SECRET);
+    } catch {
+      return null
+    }
   }
 }

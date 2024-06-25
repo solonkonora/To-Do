@@ -1,26 +1,30 @@
 ### START APP
 
 - To start application, run
+
     ```bash
-        $ npm run dev # to start development server
+        npm run dev # to start development server
     ```
 
 ## API DOCS
-_base_url : http://localhost:8080_
+
+_base_url : <http://localhost:8080>_
 
 - Available routes
-    - [Base Route](#base-route)
+  - [Base Route](#base-route)
 
-    - [Authentication](#authentication)
-        - [Singup](#sign-up)
-        - [login](#login)
-        - [Get Current User](#get-current-user)
+  - [Authentication](#authentication)
+    - [Singup](#sign-up)
+    - [login](#login)
+    - [Get Current User](#get-current-user)
 
-    - [Todos](#todos)
-        - [Get user Todos](#get-user-todos)
-
+  - [Todos](#todos)
+    - [Get user Todos](#get-user-todo)
+    - [Create User Todos](#create-user-todo)
+    - [Query Todos](#query-todos)
 
 - ### Base Route
+
         - Index Route
             ```bash
                 Get("/")
@@ -28,9 +32,10 @@ _base_url : http://localhost:8080_
                 Welcome to our APi. ##ALMIGHTY_REBASE_DEVS
             ```
 
-
 - ### AUTHENTICATION
-    - #### Sign Up
+
+- #### Sign Up
+
         ```bash
             Post("/signup")
             - # body: require
@@ -45,7 +50,8 @@ _base_url : http://localhost:8080_
                 }
         ```
 
-    - #### Login
+- #### Login
+
         ```bash
             Post("/login")
             - # body: require
@@ -60,7 +66,8 @@ _base_url : http://localhost:8080_
                 }
         ```
 
-    - #### Get Current User
+- #### Get Current User
+
         ```bash
             Get("/current-user")
             - # header: require
@@ -71,22 +78,107 @@ _base_url : http://localhost:8080_
                 {
                     message: "User Retrieved",
                     data: {
-                        "_id": "mongo_id",
+                        "id": "<mongo_id>",
                         "username": "test_username",
                     }
                 }
         ```
 
 - ### Todos
-    - #### Get User Todos
-        ```bash
-            Get("/todos/user")
-            - # body: require
-                {
-                    "username": "test_username"
-                }
-            - # response: status - 200
-                {
-                    //
-                }
-        ```
+
+    - #### Create User Todo
+
+            ```bash
+                Post("/todos/")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # body: required
+                    {
+                        "userId": "<mongo_id>",
+                        "todo": "lorem ipsum bla bla bla",
+                        "priority": "Medium", # ["High", "Medium", "Low"], default is "Medium"
+                        "status": "To Do", # ["To Do", "In Progress", "Completed", "Blocked"], default is "To Do"
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todo Retrieved",
+                        data: {
+                            "id": "<mongo_id>",
+                            "userId": "<mongo_id>",
+                            "todo": "lorem ipsum bla bla bla",
+                            "priority": "Medium",
+                            "status": "To Do",
+                            "createdAt": "Date in ISO standard",
+                            "updatedAt": "Date in ISO standard",
+                        }
+                    }
+            ```
+
+    - #### Get User Todo
+
+            ```bash
+                Get("/todos/<todo_id>")
+                - # header: require
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todo Created",
+                        data: {
+                            "id": "<mongo_id>",
+                            "userId": "<mongo_id>",
+                            "todo": "lorem ipsum bla bla bla",
+                            "priority": {
+                                "enum": ["High", "Medium", "Low"],
+                                "default": "Medium",
+                            },
+                            "status": {
+                                "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                                "default": "To Do",
+                            },
+                            "createdAt": "Date in ISO standard",
+                            "updatedAt": "Date in ISO standard",
+                        }
+                    }
+            ```
+
+    - #### Query Todos
+
+            ```bash
+                Get("/todos/")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # Query: if none of the query parameters is passed, it get all of the user's todos
+                    {
+                        "todo": "<matching_the_todo_itself>",
+                        "priority": "", # ["High", "Medium", "Low"],
+                        "status": "", # ["In Progress", "Completed", "Blocked"],
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todos Retrieved",
+                        "total": 1,
+                        "data": [
+                            {
+                                "id": "<mongo_id>",
+                                "userId": "<mongo_id>",
+                                "todo": "lorem ipsum bla bla bla",
+                                "priority": {
+                                    "enum": ["High", "Medium", "Low"],
+                                    "default": "Medium",
+                                },
+                                "status": {
+                                    "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                                    "default": "To Do",
+                                },
+                                "createdAt": "Date in ISO standard",
+                                "updatedAt": "Date in ISO standard",
+                            }
+                        ]
+                    }
+            ```
