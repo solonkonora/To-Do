@@ -19,7 +19,7 @@ export function Todocard({ todo }: ITodocardProps) {
             <CardContent className=' flex gap-10'>
                 <div className=' flex flex-col gap-3 font-semibold '>
                     <div className=' '>
-                        <p>{todo.todo}</p>
+                        {todo.todo}
                     </div>
                     <div className=' flex   justify-between pr-10'>
                         <div className=' flex justify-between w-1/3'>
