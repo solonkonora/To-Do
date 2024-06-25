@@ -11,7 +11,7 @@ export default function LoginForm({}: Props) {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("jsdjk");
+    console.log("jsdjk")
   };
 
   return (
