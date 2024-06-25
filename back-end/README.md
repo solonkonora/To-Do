@@ -153,11 +153,11 @@ _base_url : <http://localhost:8080>_
                     {
                         "Authorization": "Bearer <jwt_token>"
                     }
-                - # Query: requires at least on of these properties
+                - # Query: if none of the query parameters is passed, it get all of the user's todos
                     {
                         "todo": "<matching_the_todo_itself>",
                         "priority": "", # ["High", "Medium", "Low"],
-                        "status": "", # ["To Do", "In Progress", "Completed", "Blocked"],
+                        "status": "", # ["In Progress", "Completed", "Blocked"],
                     }
                 - # response: status - 200
                     {

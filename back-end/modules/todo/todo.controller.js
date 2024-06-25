@@ -73,8 +73,8 @@ const getTodos = async (req, res) => {
     /* 
       search query should be like
       $or: [
-        { todo: { $regex: new RegExp(queries.todo, 'gi') } },
-        { 'priority.enum': { $regex: new RegExp("(High)|(Medium)|(Low)"), } },
+        { todo: queries.todo },
+        { priority: queries.priority },
       ],
     */
 
@@ -84,17 +84,21 @@ const getTodos = async (req, res) => {
       searchQuery.$or.push({ todo: { $regex: new RegExp(queryParams.todo, 'gi') } });
     };
 
-    if (queryParams.priority) {
-      searchQuery.$or.push({ 'priority.enum': { $regex: new RegExp("(High)|(Medium)|(Low)"), } });
+    if (["High", "Medium", "Low"].includes(queryParams.priority)) {
+      searchQuery.$or.push({ priority: queryParams.priority });
     };
 
-    if (queryParams.status) {
-      searchQuery.$or.push({ 'status.enum': { $regex: new RegExp("(To Do)|(In Progress)|(Completed)|(Blocked)"), } });
+    if (["In Progress", "Completed", "Blocked"].includes(queryParams.status)) {
+      searchQuery.$or.push({ status: queryParams.status });
     }
 
-    const todos = await TodoService.queryUserTodos(req.user.id, {});
+    if (!searchQuery.$or.length) {
+      // meaning no matching query was added.
+      // deleting because $and/$or/$nor must be a nonempty array
+      delete searchQuery.$or;
+    }
 
-    // console.log(queries);
+    const todos = await TodoService.queryUserTodos(req.user.id, searchQuery);
 
     return res.status(200).json({
       message: "Todos Retrieved",
@@ -102,7 +106,7 @@ const getTodos = async (req, res) => {
     });
   } catch (error) {
     return res.status(error?.status || 500).json({
-      message: error?.message || "Something Happened",
+      message: error?.message || "Something Went Wrong",
       data: null,
     });
   }

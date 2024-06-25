@@ -7,7 +7,7 @@ const todoSchema = new Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'user',
+            ref: "user",
         },
         todo: {
             type: String,
@@ -15,13 +15,13 @@ const todoSchema = new Schema(
         },
         priority: {
             type: String,
-            enum: ['High', 'Medium', 'Low'],
-            default: 'Medium',
+            enum: ["High", "Medium", "Low"],
+            default: "Medium",
         },
         status: {
             type: String,
-            enum: ['To Do', 'In Progress', 'Completed', 'Blocked'],
-            default: 'To Do',
+            enum: ["In Progress", "Completed", "Blocked"],
+            default: "To Do",
         }
     },
     {
