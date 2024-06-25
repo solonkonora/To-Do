@@ -11,6 +11,6 @@ const todoSchema = new Schema(
     }    
 );
 
-const TodoSchema = db.model("todos", todoSchema);
+const TodoSchema = db.model("todo", todoSchema);
 
 export default TodoSchema;
