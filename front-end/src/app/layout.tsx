@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import UserAuthGuardProvider from "@/components/user-auth-guard/user-auth-guard";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -11,6 +12,7 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "Todo-app",
   description: "A full stack todo app",
+
 };
 
 export default function RootLayout({
@@ -20,13 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        {children}
+      <body className={fontSans.className}>
+        <UserAuthGuardProvider> {children} </UserAuthGuardProvider>
       </body>
     </html>
   );
