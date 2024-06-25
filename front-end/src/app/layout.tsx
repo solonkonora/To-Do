@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
+import { cn } from "@/lib/utils";
 import "./globals.css";
 import UserAuthGuardProvider from "@/components/user-auth-guard/user-auth-guard";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
-  title: "TODO",
-  description: "Todo app",
+  title: "Todo-app",
+  description: "A full stack todo app",
+
 };
 
 export default function RootLayout({
