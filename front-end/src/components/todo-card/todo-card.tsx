@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoType } from '../api/type';
+import { Todo } from '../../featuers/todos/api/type';
 import {
     Card,
     CardContent,
@@ -9,11 +9,11 @@ import {
 import { Edit, Trash, InfoIcon, ChevronDown } from "lucide-react"
 
 // todo card props
-export interface ITodocardProps {
-    todo: TodoType
+export interface TodoProps {
+    todo: Todo
 }
 
-export function Todocard({ todo }: ITodocardProps) {
+export function TodoCard({ todo }: TodoProps) {
     return (
         <Card className=' bg-[#006d77] text-white py-2 '>
             <CardContent className=' flex gap-10'>
