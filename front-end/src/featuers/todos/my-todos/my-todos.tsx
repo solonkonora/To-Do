@@ -1,7 +1,7 @@
-export default function MyTodos() {
+export default function MyTodosPage() {
   return (
-    <>
-      getting all todos
-    </>
+    <main className="w-full flex items-center justify-center">
+      My To Dos
+    </main>
   );
-};
+}

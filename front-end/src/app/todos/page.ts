@@ -1,1 +1,1 @@
-export { MyTodos as default } from "@/featuers/todos";
+export { MyTodosPage as default } from "@/featuers/todos";
