@@ -20,6 +20,11 @@ export const TodoService = {
       .then(SchemaTransformer);
   },
 
+  updateTodo(todoId, data) {
+    return TodoSchema.findOneAndUpdate({ _id: todoId }, { ...data }, { new: true, runValidators: true })
+      .then(SchemaTransformer);
+  },
+
   getById(id) {
     return TodoSchema.findById(id)
       .then(SchemaTransformer);

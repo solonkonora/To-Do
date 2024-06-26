@@ -21,7 +21,7 @@ const todoSchema = new Schema(
         status: {
             type: String,
             enum: ["In Progress", "Completed", "Blocked"],
-            default: "To Do",
+            default: "In Progress",
         }
     },
     {
