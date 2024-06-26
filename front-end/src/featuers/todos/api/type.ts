@@ -1,4 +1,4 @@
-export interface TodoType {
+export interface Todo {
     userId: string,
     todo: string,
     priority: "High" | "Medium" | "Low",

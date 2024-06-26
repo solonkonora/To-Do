@@ -84,7 +84,9 @@ export default class HTTPCLIENT {
         ...res.json(),
       };
     } catch (error) {
-      throw new Error(this._base_url);
+      // console.clear();
+      console.log({ base: this?._base_url })
+      throw new Error((error as { message?: string })?.message || "Something went wrong");
     }
   }
 
