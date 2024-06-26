@@ -22,6 +22,7 @@ _base_url : <http://localhost:8080>_
     - [Get user Todos](#get-user-todo)
     - [Create User Todos](#create-user-todo)
     - [Query Todos](#query-todos)
+    - [Edit Todo](#edit-todo)
 
 - ### Base Route
 
@@ -180,5 +181,41 @@ _base_url : <http://localhost:8080>_
                                 "updatedAt": "Date in ISO standard",
                             }
                         ]
+                    }
+            ```
+
+    - #### Edit Todo
+
+            ```bash
+                Put("/<todo_id>")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # Body: Key value pairs to edit
+                    {
+                        "todo": "<matching_the_todo_itself>",
+                        "priority": "", # ["High", "Medium", "Low"],
+                        "status": "", # ["In Progress", "Completed", "Blocked"],
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todos Retrieved",
+                        "total": 1,
+                        "data": {
+                            "id": "<mongo_id>",
+                            "userId": "<mongo_id>",
+                            "todo": "lorem ipsum bla bla bla",
+                            "priority": {
+                                "enum": ["High", "Medium", "Low"],
+                                "default": "Medium",
+                            },
+                            "status": {
+                                "enum": ["To Do", "In Progress", "Completed", "Blocked"],
+                                "default": "To Do",
+                            },
+                            "createdAt": "Date in ISO standard",
+                            "updatedAt": "Date in ISO standard",
+                        }
                     }
             ```
