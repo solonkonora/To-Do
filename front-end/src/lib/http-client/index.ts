@@ -56,12 +56,6 @@ export default class HTTPCLIENT {
       throw new Error(`"${_url}" Must begin with a slash "/"`)
     }
 
-    console.log({
-      base_url: this._base_url,
-      base_path: this._base_path,
-      pathname: _url,
-    });
-
     return this._base_url + this._base_path + _url?.trim(); // if no base url is provided, then only the url passed by the user will be used.
   }
 
