@@ -12,10 +12,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     getCurrentUser()
       .then(({ data, message, status }) => {
-        console.log({ data , message, status })
         setCurrentUser(data);
       })
-      .catch(console.log)
+      .catch((er) => er)
       .finally(() => setLoading(false));
   }, []);
 
