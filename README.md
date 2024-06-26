@@ -5,4 +5,5 @@
 - __Visit frontend guide__ [here](./front-end//README.md)
 
 - __Figma Design__ [here](https://www.figma.com/design/cq5g4GphhLoGT1pyMJZJWZ/To-do-app-(Community)?node-id=0-1&t=fI60FMwkjA8H5gur-0)
-  
+
+- [live deployment](https://r-dev-to-do.vercel.app/todos)
