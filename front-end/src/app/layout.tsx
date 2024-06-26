@@ -5,6 +5,7 @@ import { AppContextProvider } from "@/providers/context/app-context";
 import { AuthProvider } from "@/providers/auth-provider";
 import { cn } from "@/lib/utils";
 import { NavBar } from "@/components/molecules";
+import { Toaster } from "sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,10 +27,25 @@ export default async function RootLayout({
       <body className={cn(fontSans.className, "bg-tertiary-color")}>
         <AppContextProvider>
           <AuthProvider>
+            <Toaster
+              closeButton
+              theme="light"
+              pauseWhenPageIsHidden
+              toastOptions={{
+                duration: 13000,
+                classNames: {
+                  // closeButton: "bg-white",
+                },
+              }}
+              className="h-0"
+            />
+
             <>
               <NavBar />
 
-              {children}
+              <div className="w-full min-h-[calc(100vh_-_min(20vh,_90px))] flex items-stretch justify-center">
+                {children}
+              </div>
             </>
           </AuthProvider>
         </AppContextProvider>

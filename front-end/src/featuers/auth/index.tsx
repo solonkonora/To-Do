@@ -1,3 +1,1 @@
-export { default as SignUpPage } from "./sign-up-page";
-
-export { default as LoginPage } from "./login-page";
+export { default as LoginOrSignUpPage } from "./login-or-sinup-page";
