@@ -9,7 +9,7 @@ export default function Layout({
     <>
       <Sidebar />
 
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-start">
         {children}
       </div>
     </>

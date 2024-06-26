@@ -7,7 +7,7 @@ const httpClient = new HTTPCLIENT("/todos");
  * User must be logged in to access todos
 */
 const getUserTodos = () => {
-  return httpClient.GET<Todo[]>();
+  return httpClient.GET<Todo[]>("/");
 };
 
 /**

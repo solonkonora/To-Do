@@ -8,7 +8,9 @@
 
 ## API DOCS
 
-_base_url : <http://localhost:8080>_
+_dev_base_url : <http://localhost:8080>_
+
+_prod_base_url : https://r-devs-todo-api.vercel.app/_
 
 - Available routes
   - [Base Route](#base-route)

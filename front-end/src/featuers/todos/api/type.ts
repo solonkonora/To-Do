@@ -12,13 +12,13 @@ enum Status {
 
 interface Todo {
     id: string;
-    userId: string,
-    todo: string,
-    priority: keyof typeof Priority,
-    status: keyof typeof Status,
-    notes: string
-    dateCreated: Date,
-    dateUpdated: Date
+    userId: string;
+    todo: string;
+    priority: keyof typeof Priority;
+    status: keyof typeof Status;
+    notes: string;
+    createdAt: Date | string;
+    updatedAt: Date | string;
 }
 
 export {
