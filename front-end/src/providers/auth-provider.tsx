@@ -10,8 +10,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setCurrentUser } = useAppContext();
 
   useEffect(() => {
+    console.log({ RDTST: localStorage.getItem("RDTST")})
     getCurrentUser()
       .then(({ data, message, status }) => {
+        console.log({ data , message, status })
         setCurrentUser(data);
       })
       .catch(console.log)

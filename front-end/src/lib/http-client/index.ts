@@ -81,11 +81,9 @@ export default class HTTPCLIENT {
 
       return {
         status: res.status,
-        ...res.json(),
+        ...(await res.json()),
       };
     } catch (error) {
-      // console.clear();
-      console.log({ base: this?._base_url })
       throw new Error((error as { message?: string })?.message || "Something went wrong");
     }
   }
@@ -113,7 +111,7 @@ export default class HTTPCLIENT {
 
     return {
       status: res.status,
-      ...res.json(),
+      ...(await res.json()),
     };
   }
 
