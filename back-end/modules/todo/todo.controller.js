@@ -36,6 +36,50 @@ const createTodo = async (req, res) => {
   }
 }
 
+const editTodo = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({
+      message: "You must be logged before editing this todo",
+      data: null,
+    });
+
+    const todoId = req.params.todoId || "";
+
+    const prevTodo = await TodoService.queryUserTodo(req.user.id, { _id: todoId });
+
+    if (!prevTodo) return res.status(402).json({
+      message: "Todo does not exist",
+      data: null,
+    });
+
+    const update = {};
+
+    const allowedKeys = Object.keys(prevTodo)
+      .filter((key) => ["todo", "priority", "status"].includes(key)) // filtering in only keys that should be updated.
+
+    allowedKeys.forEach(key => {
+      if (req.body[key]) {
+        update[key] = req.body[key];
+      }
+    });
+
+    if (!Object.keys(update).length) return res.status(401).json({
+      message: "No matching keys found to use as updates",
+      data: null,
+    });
+
+    return res.status(200).json({
+      message: "Todo Updated",
+      data: (await TodoService.updateTodo(todoId, update)),
+    });
+  } catch (error) {
+    return res.status(error?.status || 500).json({
+      message: error?.message || "Something Happened",
+      data: null,
+    });
+  }
+}
+
 const getOneTodo = async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({
@@ -81,7 +125,7 @@ const getTodos = async (req, res) => {
     const searchQuery = { $or: [] };
 
     if (queryParams.todo) {
-      searchQuery.$or.push({ todo: { $regex: new RegExp(queryParams.todo, 'gi') } });
+      searchQuery.$or.push({ todo: { $regex: new RegExp(queryParams.todo, "gi") } });
     };
 
     if (["High", "Medium", "Low"].includes(queryParams.priority)) {
@@ -114,6 +158,7 @@ const getTodos = async (req, res) => {
 
 export {
   createTodo,
+  editTodo,
   getOneTodo,
   getTodos,
 }
