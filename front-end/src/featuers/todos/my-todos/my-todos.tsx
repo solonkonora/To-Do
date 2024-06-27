@@ -1,13 +1,12 @@
 "use client";
 
-import type { Todo } from "../api/type";
-
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getUserTodos } from "../api/todo-api";
 import { TodoCard } from "@/components/molecules";
+import { useAppContext } from "@/providers/context/app-context";
 
 export default function MyTodosPage() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, setTodos } = useAppContext();
 
   useEffect(() => {
     getUserTodos()

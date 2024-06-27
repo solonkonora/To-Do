@@ -9,6 +9,7 @@ import { Todo } from "../api/type";
 import { createTodo, editTodo, getSingleTodo } from "../api/todo-api";
 import { useAppContext } from "@/providers/context/app-context";
 import { toast } from "sonner";
+import Link from "next/link";
 
 interface Props {
   pageType: "Create-Page" | "Edit-Page";
@@ -16,16 +17,19 @@ interface Props {
 
 export default function CreateOrEditTodoPage({ pageType }: Props) {
   const params = useParams<{ todoId: string }>();
-  const { currentUser } = useAppContext();
 
-  const [loading, setLoading] = useState<boolean>(pageType === "Edit-Page"); // if page type is edit page, then we'll fetch, hence loading is true from start
-
-  const [editData, setEditData] = useState<Partial<Todo>>({
+  const getDefaultEdits = (): Partial<Todo> => ({
     userId: currentUser?.id || "",
     todo: "",
     priority: "Medium",
     status: "In Progress",
   });
+
+  const { currentUser } = useAppContext();
+
+  const [loading, setLoading] = useState<boolean>(pageType === "Edit-Page"); // if page type is edit page, then we'll fetch, hence loading is true from start
+
+  const [editData, setEditData] = useState<Partial<Todo>>(getDefaultEdits());
 
   const warnMissingField = (description: string) => toast.warning("Missing Field", {
     description
@@ -52,7 +56,14 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
         loading: "Editing...",
         success: ({ data: { updatedAt, createdAt, id, userId, ...rest }, status, message }) => {
           setEditData((prev) => ({ ...prev, ...rest }));
-          return "Task updated successfully";
+
+          toast.success("Task updated successfully", {
+            action: {
+              label: <Link href={`/todos/view/${id}`}>View Task</Link>,
+              onClick: () => null,
+            },
+          });
+          return "Update Done";
         },
         error: (er) => {
           return er?.message || "An error occurred";
@@ -67,9 +78,16 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
 
     toast.promise(() => createTodo(editData), {
       loading: "Creating...",
-      success: ({ data: { updatedAt, createdAt, id, userId, ...rest }, status, message }) => {
-        setEditData((prev) => ({ ...prev, ...rest }));
-        return "Task created successfully";
+      success: ({ data, status, message }) => {
+        setEditData(getDefaultEdits()); // clearing form after creation
+
+        toast.success("Task created successfully", {
+          action: {
+            label: <Link href={`/todos/view/${data.id}`}>View Task</Link>,
+            onClick: () => null,
+          },
+        });
+        return "Creation Done";
       },
       error: (er) => {
         return er?.message || "An error occurred";

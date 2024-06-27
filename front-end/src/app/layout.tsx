@@ -32,7 +32,7 @@ export default async function RootLayout({
               theme="light"
               pauseWhenPageIsHidden
               toastOptions={{
-                duration: 13000,
+                // duration: 1300,
                 classNames: {
                   // closeButton: "bg-white",
                 },
