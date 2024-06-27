@@ -21,7 +21,7 @@ const config = {
       colors: {
         "secondary-color": '#83C5BE',
         "primary-color": "#006D77",
-        "tertiary-color": "#ffddd2",
+        "tertiary-color": "#fff",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
