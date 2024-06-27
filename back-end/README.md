@@ -25,6 +25,7 @@ _prod_base_url : https://r-devs-todo-api.vercel.app/_
     - [Create User Todos](#create-user-todo)
     - [Query Todos](#query-todos)
     - [Edit Todo](#edit-todo)
+    - [Delete Todo](#delete-todo)
 
 - ### Base Route
 
@@ -202,8 +203,7 @@ _prod_base_url : https://r-devs-todo-api.vercel.app/_
                     }
                 - # response: status - 200
                     {
-                        "message": "Todos Retrieved",
-                        "total": 1,
+                        "message": "Todo  Updated",
                         "data": {
                             "id": "<mongo_id>",
                             "userId": "<mongo_id>",
@@ -219,5 +219,20 @@ _prod_base_url : https://r-devs-todo-api.vercel.app/_
                             "createdAt": "Date in ISO standard",
                             "updatedAt": "Date in ISO standard",
                         }
+                    }
+            ```
+
+    - #### Delete Todo
+
+            ```bash
+                Delete("/<todo_id>")
+                - # header: required
+                    {
+                        "Authorization": "Bearer <jwt_token>"
+                    }
+                - # response: status - 200
+                    {
+                        "message": "Todo Deleted Successfully",
+                        "data": null
                     }
             ```
