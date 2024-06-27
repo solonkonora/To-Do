@@ -1,4 +1,4 @@
-import {  LayoutGrid, LogOut, Plus } from "lucide-react";
+import { LayoutGrid, LogOut, Plus } from "lucide-react";
 import Link from "next/link";
 
 const dashboardElements = [
@@ -7,7 +7,6 @@ const dashboardElements = [
     icon: <LayoutGrid className=" text-tertiary-color" />,
     href: "/todos"
   },
-
   {
     text: "Add Task",
     icon: <Plus className="text-tertiary-color" />,
