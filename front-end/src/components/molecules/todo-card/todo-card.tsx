@@ -47,12 +47,12 @@ function DropDownBuilder({ property, value, arrKeys }: { property: string; value
                     {property}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-tertiary-color hover:text-primary-color">
                     {value} <span className="h-[5px] w-[5px] inline-block rounded-full ml-2 bg-tertiary-color animate-pulse" />
                 </DropdownMenuItem>
                 {
                     arrKeys.filter((k) => k !== value).map((k) => (
-                        <DropdownMenuItem key={k}>
+                        <DropdownMenuItem key={k} className="hover:bg-tertiary-color hover:text-primary-color">
                             {k}
                         </DropdownMenuItem>
                     ))
@@ -91,7 +91,7 @@ function DeleteDialog({ todoId }: { todoId: string }) {
                     <DialogTitle>Are you absolutely sure?</DialogTitle>
                     <DialogDescription className="text-gray-300">
                         This action cannot be undone. This will permanently delete your todo
-                        and remove all it's from our servers.
+                        and remove all it's data from our servers.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start gap-3">
