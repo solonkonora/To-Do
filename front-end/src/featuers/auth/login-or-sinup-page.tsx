@@ -17,6 +17,7 @@ interface Props {
 export default function LoginOrSignUpPage({ pageType }: Props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -25,13 +26,14 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
       return toast.warning("Username and Password fields required");
     };
 
+    setLoading(true);
+
     const userData = {
       username,
       password,
     };
 
     if (pageType === "Login") {
-      console.log("logging in")
       toast.promise(
         () => login(userData), {
         loading: "Loading...",
@@ -44,16 +46,14 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
           return message;
         },
         error: (er) => {
-          if (er?.message) return er?.message;
-
-          return "Invalid username or password"
-        }
+          return er?.message || "Invalid username or password";
+        },
+        finally: () => setLoading(false),
       });
       return;
     };
     // SIGN UP
 
-    console.log("signing up")
     toast.promise(
       () => signUp(userData), {
       loading: "Loading...",
@@ -66,39 +66,40 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         return message;
       },
       error: (er) => {
-        if (er?.message) return er?.message;
-
-        return "Invalid username or password"
-      }
+        return er?.message || "Invalid username or password";
+      },
+      finally: () => setLoading(false),
     })
   };
 
   return (
     <main className="w-full flex items-center justify-center">
-      <div className="border w-[90%] max-w-[500px] flex flex-col justify-between mx-auto rounded text-primary-color py-8 border-secondary-color mt-20">
-        <div className="w-full flex justify-between gap-5 mx-auto p-5">
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+      <div className="border w-[90%] max-w-[500px] md:max-w-[620px] flex flex-col items-center justify-between rounded text-primary-color py-8 border-secondary-color">
+        <div className="w-full flex flex-col md:flex-row justify-between gap-5 mx-auto p-5">
+          <div className="w-full flex flex-col items-start justify-center gap-1.5">
             <Label htmlFor="username">Username</Label>
             <Input
               type="text"
               id="username"
               placeholder="Enter Username"
+              disabled={loading}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="w-full flex flex-col items-start justify-center gap-1.5">
             <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               id="password"
               placeholder="Enter Password"
+              disabled={loading}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
 
-        <p className="text-center py-5">
+        <p className="w-fit py-5">
           {pageType === "Login" ? "Don't have an account?" : "Already have an account"} {" "}
           <Link href={pageType === "Login" ? "/signup" : "/login"} className="hover:underline font-semibold">
             {pageType === "Login" ? "SignUp" : "Login"}
@@ -106,7 +107,8 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         </p>
 
         <Button
-          className="bg-primary-color flex justify-center mx-auto text-[#f1f1f1] px-8"
+          className="bg-primary-color w-full max-w-[min(90%,_170px)] flex justify-center text-tertiary-color px-8"
+          disabled={loading}
           onClick={handleLoginOrSignUp}
         >
           {pageType}

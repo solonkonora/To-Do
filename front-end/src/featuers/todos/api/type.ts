@@ -16,7 +16,6 @@ interface Todo {
     todo: string;
     priority: keyof typeof Priority;
     status: keyof typeof Status;
-    notes: string;
     createdAt: Date | string;
     updatedAt: Date | string;
 }

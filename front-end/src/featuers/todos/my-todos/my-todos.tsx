@@ -3,12 +3,11 @@
 import type { Todo } from "../api/type";
 
 import { useState, useEffect } from "react";
-import { getUserTodos } from "../api/todo-queries";
+import { getUserTodos } from "../api/todo-api";
 import { TodoCard } from "@/components/molecules";
 
 export default function MyTodosPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
-
 
   useEffect(() => {
     getUserTodos()
