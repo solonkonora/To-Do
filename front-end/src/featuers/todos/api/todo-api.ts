@@ -19,6 +19,10 @@ const getSingleTodo = (todoId: string) => {
   return httpClient.GET<Todo>(`/${todoId}`);
 }
 
+const deleteTodo = (todoId: string) => {
+  return httpClient.DELETE(`/${todoId}`);
+}
+
 // TODO MUTATIONS
 
 const createTodo = (todo: Partial<Todo>) => {
@@ -32,6 +36,7 @@ const editTodo = (todoId: string, update: Partial<Todo>) => {
 export {
   getUserTodos,
   getSingleTodo,
+  deleteTodo,
 
   // TODO MUTATIONS
 
