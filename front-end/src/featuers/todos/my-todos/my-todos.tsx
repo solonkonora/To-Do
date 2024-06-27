@@ -1,31 +1,23 @@
 "use client";
 
-import { useEffect } from "react";
-import { getUserTodos } from "../api/todo-api";
-import { TodoCard } from "@/components/molecules";
+import { useState } from "react";
+import { SearchComponent, TodoDisplay } from "@/components/molecules";
 import { useAppContext } from "@/providers/context/app-context";
 
 export default function MyTodosPage() {
-  const { todos, setTodos } = useAppContext();
-
-  useEffect(() => {
-    getUserTodos()
-      .then(({ data, message, status }) => {
-        setTodos(data)
-      })
-  }, []);
+  const { todos } = useAppContext();
+  const [loadingTodos, setLoadingTodos] = useState<boolean>(true);
 
   return (
-    <main className="w-full flex flex-col items-center justify-start">
-      My To Dos is
+    <main className="w-full flex flex-col items-center justify-start gap-8">
+      <SearchComponent // passing down this props here since there's absolutely no reason to make it globally available in context
+        setLoadingTodos={setLoadingTodos}
+      />
 
-      <div className="flex flex-col l w-full gap-8 p-4">
-        {
-          todos?.map((todo) => (
-            <TodoCard key={todo.id} todo={todo} />
-          ))
-        }
-      </div>
+      <TodoDisplay
+        todos={todos}
+        loadingTodos={loadingTodos}
+      />
     </main>
   );
 }

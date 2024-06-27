@@ -10,7 +10,7 @@ function TextLogo({ className = "", ...restProps }: TextLogoProps) {
   return (
     <h1
       {...restProps}
-      className={cn("font-semibold text-primary-color cursor-pointer", className)}
+      className={cn("font-semibold text-primary-color cursor-pointer text-xl", className)}
     >
       <Link href="/" className="cursor-pointer w-fit">
         R-Devs-To-Do-App
