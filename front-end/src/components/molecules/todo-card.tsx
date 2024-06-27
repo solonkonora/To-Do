@@ -11,7 +11,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
     DropdownMenuContent,
-    DropdownMenuItem
+    DropdownMenuItem,
+    DropdownMenuLabel
 } from "../ui/dropdown-menu";
 import Link from "next/link";
 
@@ -20,17 +21,20 @@ export interface TodoProps {
     todo: Todo
 };
 
-function DropDownBuilder({ value, arrKeys }: { value: string; arrKeys: string[] }) {
+function DropDownBuilder({ property, value, arrKeys }: { property: string; value: string; arrKeys: string[] }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer flex flex-nowrap text-nowrap">
                 <ChevronDown /> {value}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-primary-color text-tertiary-color">
+                <DropdownMenuLabel>
+                    {property}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>
                     {value}
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
                 {
                     arrKeys.filter((k) => k !== value).map((k) => (
                         <DropdownMenuItem key={k}>
@@ -54,13 +58,13 @@ export default function TodoCard({ todo }: TodoProps) {
 
                     <div className="flex justify-between flex-wrap sm:flex-nowrap">
                         <div className="w-fit flex items-center justify-between gap-2 mr-4">
-                            <DropDownBuilder value={todo.priority} arrKeys={Object.values(Priority)} />
+                            <DropDownBuilder property="Priority" value={todo.priority} arrKeys={Object.values(Priority)} />
 
-                            <DropDownBuilder value={todo.status} arrKeys={Object.values(Status)} />
+                            <DropDownBuilder property="Status" value={todo.status} arrKeys={Object.values(Status)} />
                         </div>
 
                         <div className="flex items-center">
-                            <span className="text-nowrap">Start date: &nbsp;&nbsp;</span>
+                            <span className="text-nowrap">Start Date: &nbsp;</span>
                             <span>{new Date(todo.createdAt).toDateString()}</span>
                         </div>
                     </div>
