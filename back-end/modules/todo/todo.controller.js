@@ -156,9 +156,33 @@ const getTodos = async (req, res) => {
   }
 }
 
+const deleteOneTodo = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({
+      message: "You must be logged before deleting this todo",
+      data: null,
+    });
+
+    const todoId = req.params.todoId;
+
+    await TodoService.deletedTodo(todoId);
+
+    return res.status(200).json({
+      message: "Todo Deleted Successfully",
+      data: null,
+    });
+  } catch (error) {
+    return res.status(error?.status || 500).json({
+      message: error?.message || "Something Happened",
+      data: null,
+    });
+  }
+}
+
 export {
   createTodo,
   editTodo,
   getOneTodo,
   getTodos,
+  deleteOneTodo,
 }

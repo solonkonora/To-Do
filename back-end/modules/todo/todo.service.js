@@ -47,4 +47,8 @@ export const TodoService = {
     return TodoSchema.find(_query)
       .then(SchemaTransformer);
   },
-}
+
+  deletedTodo(todoId) {
+    return TodoSchema.findByIdAndDelete(todoId);
+  }
+};
