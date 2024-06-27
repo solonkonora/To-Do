@@ -1,7 +1,7 @@
 export default function Sidebar() {
   return (
     <div // acting as sidebar
-      className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-start gap-6 pt-12 bg-primary-color rounded-none"
+      className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-start gap-6 pt-8 bg-primary-color rounded-none"
     >
       {
         Array.from({ length: 4 }, (_, i) => i).map((index) => (

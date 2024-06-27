@@ -1,4 +1,4 @@
-import { Priority, Status, type Todo } from "../../featuers/todos/api/type";
+import { Priority, Status, type Todo } from "../../../featuers/todos/api/type";
 import {
     Card,
     CardContent,
@@ -13,7 +13,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import {
     Dialog,
     DialogClose,
@@ -24,9 +24,9 @@ import {
     DialogTitle,
     DialogTrigger
 
-} from "../ui/dialog";
+} from "../../ui/dialog";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { toast } from "sonner";
 import { deleteTodo } from "@/featuers/todos/api/todo-api";
 import { useAppContext } from "@/providers/context/app-context";

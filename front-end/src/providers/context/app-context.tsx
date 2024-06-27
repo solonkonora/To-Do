@@ -25,7 +25,7 @@ function AppContextProvider({ children }: {
             currentUser,
             setCurrentUser,
             todos,
-            setTodos
+            setTodos,
         }}>
             {children}
         </AppContext.Provider>
