@@ -60,20 +60,17 @@ export default function SearchComponent({ setLoadingTodos }: Props) {
     setLoadingTodos(true);
 
     const timId = setTimeout(() => {
-      // console.log("in time out");
       getUserTodos(searchQuery)
         .then(({ data, message, status }) => {
           setTodos(data);
         })
-        // .catch(console.warn)
+
         .finally(() => {
-          // console.log("fetched")
           setLoadingTodos(false);
         });
     }, 1200);
 
     return () => {
-      // console.log("clearing timId", timId);
       clearTimeout(timId);
     }
   }, [searchQuery]);

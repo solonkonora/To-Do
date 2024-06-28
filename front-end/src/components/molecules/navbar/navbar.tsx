@@ -13,8 +13,8 @@ export default function Navbar() {
     <nav className="w-full h-[min(20vh,_90px)] px-6 py-5 bg-secondary-color flex items-center justify-between">
       <TextLogo />
 
-      <Link
-        href={currentUser?.username ? "/todos" : "/login"}
+      <span
+        // href={currentUser?.username ? "/todos" : "/login"}
         className="w-fit flex flex-col sm:flex-row items-center justify-center gap-2 text-primary-color hover:cursor-pointer"
       >
         <CircleUser size={40} />
@@ -22,7 +22,7 @@ export default function Navbar() {
         <span className="font-semibold text-nowrap">
           {currentUser?.username || "Login"}
         </span>
-      </Link>
+      </span>
     </nav>
   );
 }

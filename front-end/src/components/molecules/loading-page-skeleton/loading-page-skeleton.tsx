@@ -31,7 +31,7 @@ export default function LoadingPageSkeleton({ children = null }: { children?: Re
                   <div key={index} className="w-[90%] flex items-center justify-start gap-4">
                     <Skeleton className="w-[40px] h-[35px] rounded-sm" />
 
-                    <Skeleton className="w-[90%] h-[35px] rounded-sm bg-[#ffddd2]" />
+                    <Skeleton className="w-[90%] h-[35px] rounded-sm bg-tertiary-color" />
                   </div>
                 ))
               }
