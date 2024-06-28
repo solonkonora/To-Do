@@ -17,7 +17,7 @@ const dashboardElements = [
 export default function Sidebar() {
   return (
     <div
-      className="w-[40vw] max-w-[300px] flex flex-col items-center justify-start gap-6 pt-8 bg-primary-color rounded-none"
+      className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-start gap-6 pt-8 bg-primary-color rounded-none"
     >
       {dashboardElements.map((textIcon) => (
         <Link className="w-[90%] flex items-center justify-start gap-4 cursor-pointer" key={textIcon.href} href={textIcon.href}>

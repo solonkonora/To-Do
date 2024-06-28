@@ -1,15 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { useParams } from "next/navigation";
-import { Todo } from "../api/type";
+import { Todo, Priority, Status } from "../api/type";
 import { createTodo, editTodo, getSingleTodo } from "../api/todo-api";
 import { useAppContext } from "@/providers/context/app-context";
 import { toast } from "sonner";
 import Link from "next/link";
+import { TodoSelectDropDown } from "@/components/molecules";
 
 interface Props {
   pageType: "Create-Page" | "Edit-Page";
@@ -17,15 +17,14 @@ interface Props {
 
 export default function CreateOrEditTodoPage({ pageType }: Props) {
   const params = useParams<{ todoId: string }>();
+  const { currentUser, setTodos } = useAppContext();
 
-  const getDefaultEdits = (): Partial<Todo> => ({
+  const getDefaultEdits = useCallback((): Partial<Todo> => ({
     userId: currentUser?.id || "",
     todo: "",
     priority: "Medium",
     status: "In Progress",
-  });
-
-  const { currentUser } = useAppContext();
+  }), [currentUser]);
 
   const [loading, setLoading] = useState<boolean>(pageType === "Edit-Page"); // if page type is edit page, then we'll fetch, hence loading is true from start
 
@@ -35,10 +34,10 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
     description
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: keyof Todo) => {
+  const handleChange = (val: string, key: keyof Todo) => {
     setEditData((prev) => ({
       ...prev,
-      [key]: e.target.value,
+      [key]: val,
     }));
   };
 
@@ -54,7 +53,15 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
     if (pageType === "Edit-Page") {
       toast.promise(() => editTodo(params.todoId, editData), {
         loading: "Editing...",
-        success: ({ data: { updatedAt, createdAt, id, userId, ...rest }, status, message }) => {
+        success: ({ data, status, message }) => {
+          const { updatedAt, createdAt, id, userId, ...rest } = data;
+
+          setTodos(prev => prev.map(t => {
+            if (t.id === id) return data;
+
+            return t;
+          }));
+
           setEditData((prev) => ({ ...prev, ...rest }));
 
           toast.success("Task updated successfully", {
@@ -114,7 +121,7 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
   }, [pageType, params]);
 
   return (
-    <main className="w-full flex flex-col items-center justify-start gap-12 pt-10">
+    <main className="w-full flex flex-col items-center justify-start gap-12">
       <div className="w-full max-w-[min(95%,_600px)] flex items-center justify-center bg-secondary-color text-tertiary-color h-[90px] md:h-[120px]">
         <span className="text-nowrap text-xl md:text-3xl font-[600]">
           {(() => {
@@ -133,30 +140,25 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
       >
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
           <Label htmlFor="priority" className="w-full flex flex-col items-start justify-center gap-3">
-            <span className="font-semibold">Priority</span>
+            <span className="font-semibold">Priority ({editData.priority})</span>
 
-            <Input
-              type="text"
-              id="priority"
-              placeholder="Set Priority Level."
-              className="w-full"
-              value={editData.priority}
-              onChange={(e) => handleChange(e, "priority")}
-              disabled={loading}
+            <TodoSelectDropDown
+              property="Priority"
+              defaultValue={editData.priority || ""}
+              onValueChange={(val) => handleChange(val, "priority")}
+              arrValues={Object.keys(Priority)}
             />
           </Label>
 
           <Label htmlFor="status" className="w-full flex flex-col items-start justify-center gap-3">
-            <span className="font-semibold">Status</span>
+            <span className="font-semibold">Status ({editData.status})</span>
 
-            <Input
-              type="text"
-              id="status"
-              placeholder="Set Status"
-              className="w-full"
-              disabled
-              value={editData.status}
-            // onChange={(e) => handleChange(e, "status")}
+            <TodoSelectDropDown
+              disabled={pageType === "Create-Page"}
+              property="Status"
+              defaultValue={editData.status || ""}
+              onValueChange={(val) => handleChange(val, "status")}
+              arrValues={Object.keys(Status)}
             />
           </Label>
         </div>
@@ -167,11 +169,11 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
           <textarea
             id="todo"
             placeholder="Write Todo"
-            className="w-full p-4 rounded-sm"
+            className="w-full p-4 rounded-sm border border-secondary-color"
             rows={10}
             value={editData.todo}
             disabled={loading}
-            onChange={(e) => handleChange(e, "todo")}
+            onChange={(e) => handleChange(e.target.value, "todo")}
           />
         </Label>
 
