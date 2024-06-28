@@ -3,10 +3,6 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-<<<<<<< HEAD
-    <main className="w-full flex items-center justify-center">
-      Home Page
-=======
     <main className="w-full h-full flex flex-col items-center justify-start">
       <div className="flex flex-col gap-4 items-center pt-8">
         <p className="text-secondary-color font-semibold">Welcome To The</p>
@@ -22,7 +18,6 @@ export default function HomePage() {
           Get Started
         </Link>
       </div>
->>>>>>> c607a74 (adding the landing page)
     </main>
   );
 };
