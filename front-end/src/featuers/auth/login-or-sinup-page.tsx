@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { login, signUp } from "./api";
 import { tokenService } from "@/lib/token-service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   pageType: "Login" | "Sign Up" // re-using same form for both pages
@@ -19,9 +19,15 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  const searchParams = useSearchParams();
   const router = useRouter();
 
+  const nextPath = useMemo(() => searchParams.get("next") || "", [searchParams]);
+
   const handleLoginOrSignUp = async () => {
+    router.push(nextPath);
+
+    return;
     if (!username || !password) {
       return toast.warning("Username and Password fields required");
     };
@@ -41,7 +47,8 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
           const { data: token, status, message } = res;
           tokenService.saveToken(token);
 
-          router.push("/todos");
+          if (nextPath) router.push(nextPath);
+          else router.push("/todos");
 
           return message;
         },
@@ -61,7 +68,8 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         const { data: token, status, message } = res;
         tokenService.saveToken(token);
 
-        router.push("/todos");
+        if (nextPath) router.push(nextPath);
+        else router.push("/todos");
 
         return message;
       },

@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "@/services/constants";
 import { createDefaultHeaders } from "./headers";
+import { tokenService } from "../token-service";
 
 interface ApiReturnType<T> {
   message: string;
@@ -24,6 +25,7 @@ export default class HTTPCLIENT {
   private _headers;
   private _base_url;
   private _base_path; // e.g /auth
+  private tokenService = tokenService;
 
   /**
    * @constructor creates an instance of HTTPCLIENT 👷🏾‍♂️ 🛠️ 🚧
@@ -70,6 +72,7 @@ export default class HTTPCLIENT {
       const res = await fetch(url, {
         method,
         headers: {
+          "Authorization": `Bearer ${this.tokenService.getToken()}`,
           ...this._headers,
           ..._headers,
         },
@@ -100,6 +103,7 @@ export default class HTTPCLIENT {
     const res = await fetch(url, {
       method,
       headers: {
+        "Authorization": `Bearer ${this.tokenService.getToken()}`,
         ...this._headers,
         ..._headers,
       },

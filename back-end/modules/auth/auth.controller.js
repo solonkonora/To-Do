@@ -76,14 +76,18 @@ const GetCurrentUser = async (req, res) => {
         message: "No user found",
         data: null,
       });
-    }
+    };
+
+    return res.status(200).json({
+      message: "User Retrieved",
+      data: sessionUser,
+    });
 
     const { password, ...currentUser } = await UserService.getByUsername(sessionUser.username);
 
     return res.status(200).json({
       message: "User Retrieved",
-      data: currentUser,
-    })
+    });
   } catch (error) {
     return res.status(error?.status || 500).json({
       message: error?.message || "Something went wrong",
