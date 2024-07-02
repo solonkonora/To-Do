@@ -24,7 +24,7 @@ const SignupHandler = async (req, res) => {
   const token = AuthService.jwtSignUser(userData);
 
   res.status(200).json({
-    message: "Signup Successfull",
+    message: "Signup Successful",
     data: token,
   });
 }
@@ -35,7 +35,7 @@ const LoginHandler = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: "user doesnot exist",
+        message: "user does not exist",
         data: null
       });
     }
@@ -54,7 +54,7 @@ const LoginHandler = async (req, res) => {
     const token = AuthService.jwtSignUser(userData);
 
     res.status(200).json({
-      message: "Login Successfull",
+      message: "Login Successful",
       data: token,
     });
   } catch (error) {
@@ -78,15 +78,11 @@ const GetCurrentUser = async (req, res) => {
       });
     };
 
-    return res.status(200).json({
-      message: "User Retrieved",
-      data: sessionUser,
-    });
-
     const { password, ...currentUser } = await UserService.getByUsername(sessionUser.username);
 
     return res.status(200).json({
       message: "User Retrieved",
+      data: currentUser,
     });
   } catch (error) {
     return res.status(error?.status || 500).json({

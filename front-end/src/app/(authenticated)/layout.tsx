@@ -1,9 +1,9 @@
-import { AuthGuard } from "@/providers/auth-guard";
+import { AuthProvider } from "@/providers/auth-provider";
 
 export default function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthGuard>
+    <AuthProvider strict>
       {children}
-    </AuthGuard>
-  )
+    </AuthProvider>
+  );
 };
