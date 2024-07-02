@@ -25,9 +25,9 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
   const nextPath = useMemo(() => searchParams.get("next") || "", [searchParams]);
 
   const handleLoginOrSignUp = async () => {
-    router.push(nextPath);
+    // router.push(nextPath);
 
-    return;
+    // return;
     if (!username || !password) {
       return toast.warning("Username and Password fields required");
     };

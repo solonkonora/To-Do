@@ -10,9 +10,13 @@
 
 ### Let's Navigate the app
 
+__Home [view](https://r-dev-to-do.vercel.app/todos)__
+
+![home](./readme-assets/r-dev-todo-home.png)
+
 ---
 
-__TODOS [view](https://r-dev-to-do.vercel.app/todos)__
+__Todos [view](https://r-dev-to-do.vercel.app/todos)__
 
 ![all task](./readme-assets/todo-todos.png)
 

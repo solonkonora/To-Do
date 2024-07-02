@@ -14,13 +14,20 @@ interface Options {
 }
 
 const useGetCurrentUser = (options?: Options) => {
+  const { currentUser, setCurrentUser } = useAppContext();
+
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string>("");
 
-  const { setCurrentUser } = useAppContext();
-
   useEffect(() => {
+    if (currentUser?.username || currentUser) {
+      setUser(currentUser);
+      setLoading(false);
+      setError("");
+      return;
+    };
+
     getCurrentUser()
       .then(({ data, message, status }) => {
         setUser(data);
