@@ -69,11 +69,13 @@
 
 import { useEffect, useState } from "react";
 import { LucideImport, Share2, Share2Icon } from "lucide-react";
-import { Todo } from "../api/type";
+import { Priority, Status, Todo } from "../api/type";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getSingleTodo } from "../api/todo-api";
+import { TodoDropDownList } from "@/components/molecules";
 
 
 export default function SingleTodo() {
@@ -92,32 +94,53 @@ export default function SingleTodo() {
   };
 
   useEffect(() => {
-    const fetchTodo = async () => {
-      try {
-        const response = await fetch(`/api/todos/${params.todoId}`);
-        const data: Todo = await response.json();
-        console.log("Fetched todo:", data);
-        setTodo(data);
-      } catch (error) {
-        console.error("Error fetching todo:", error);
-      }
-    };
+    if (!params.todoId) return;
 
-    fetchTodo();
+    getSingleTodo(params.todoId)
+      .then(({ data, message, status }) => {
+        setTodo(data)
+      })
+      .catch();
   }, [params.todoId]);
 
   return (
     <main className="container mx-auto p-4">
-     {todo && (
+      {todo && (
         <p className="text-primary-color text-2xl mx-auto md:pr-14 lg:pr-14 xl:pr-14 max-w-[800px]">
-          {todo.description} 
+          {todo.todo}
         </p>
       )}
 
-
       <div className="flex gap-2 sm:gap-8 sm:justify-around mt-10">
-        <div className="flex flex-col items-start text-primary-color pb-5 space-y-6 md:flex-row md:space-x-6 lg:items-end">
-          <div className="flex flex-col text-primary-color">
+        <div className="flex flex-nowrap items-center justify-center gap-8">
+          {
+            todo && (
+              <>
+                <div className="border min-w-[170px] rounded-sm">
+                  <TodoDropDownList
+                    allowApiModifications
+                    todoId={todo.id}
+                    property={"Priority"}
+                    defaultValue={todo.priority}
+                    arrValues={Object.keys(Priority)}
+                    onUpdateSuccessfull={setTodo}
+                  />
+                </div>
+
+                <div className="border min-w-[170px] rounded-sm">
+                  <TodoDropDownList
+                    allowApiModifications
+                    todoId={todo.id}
+                    property={"Status"}
+                    defaultValue={todo.status}
+                    arrValues={Object.keys(Status)}
+                    onUpdateSuccessfull={setTodo}
+                  />
+                </div>
+              </>
+            )
+          }
+          {/* <div className="flex flex-col text-primary-color">
             <Label htmlFor="priority" className="font-semibold mb-3 text-2l">
               Priority Level
             </Label>
@@ -147,7 +170,7 @@ export default function SingleTodo() {
                 <SelectItem value="blocked">Blocked</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
         </div>
       </div>
 
