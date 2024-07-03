@@ -1,5 +1,9 @@
+"use client"
+
 import { LayoutGrid, LogOut, Plus } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const dashboardElements = [
   {
@@ -15,6 +19,21 @@ const dashboardElements = [
 ];
 
 export default function Sidebar() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    router.replace("/");
+    toast.success("Logout successful!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
+
   return (
     <div
       className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-start gap-6 pt-8 bg-primary-color rounded-none"
@@ -31,7 +50,8 @@ export default function Sidebar() {
           </div>
         </Link>
       ))}
-      <Link href="/logout" className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm" >
+
+      <button onClick={handleLogout} className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm" >
         <div className="flex flex-col items-center gap-4">
           <div className="w-[40px] h-[35px] rounded-sm">
             <LogOut className="text-tertiary-color" />
@@ -40,7 +60,7 @@ export default function Sidebar() {
         <div className="w-[90%] h-[35px] rounded-sm text-tertiary-color">
           <span>Logout</span>
         </div>
-      </Link>
+      </button>
     </div>
   );
 }
