@@ -37,6 +37,7 @@ import { Trash, ChevronDown } from "lucide-react";
 import { useAppContext } from "@/providers/context/app-context";
 import { deleteTodo, editTodo } from "@/featuers/todos/api/todo-api";
 import { useState } from "react";
+import { Todo } from "@/featuers/todos/api/type";
 
 interface SelectProps {
   disabled?: boolean; // weather or not select field is disabled;
@@ -53,6 +54,7 @@ interface ListProps {
   defaultValue: string;
   arrValues: string[];
   allowApiModifications?: boolean; // weather or not clicking any item on list should actually update todo
+  onUpdateSuccessfull?: (todo: Todo) => void;
 };
 
 function TodoSelectDropDown({
@@ -81,14 +83,19 @@ function TodoSelectDropDown({
   )
 };
 
-function TodoDropDownList({ todoId, property, defaultValue, arrValues, allowApiModifications = false }: ListProps) {
+function TodoDropDownList({
+  todoId,
+  property,
+  defaultValue,
+  arrValues,
+  onUpdateSuccessfull,
+  allowApiModifications = false
+}: ListProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { todos, setTodos } = useAppContext();
 
   const handleUpdate = (value: string) => {
     if (!allowApiModifications) return;
-
-    if (!todos.find(t => t.id === todoId)) return;
 
     setLoading(true);
 
@@ -97,6 +104,8 @@ function TodoDropDownList({ todoId, property, defaultValue, arrValues, allowApiM
     toast.promise(() => editTodo(todoId, update), {
       loading: `Updating ${property} ...`,
       success: ({ data, message, status }) => {
+        if (onUpdateSuccessfull) onUpdateSuccessfull(data);
+
         setTodos(prev => prev.map(t => {
           // updating only on the UI
           if (t.id === todoId) return data;
@@ -115,7 +124,7 @@ function TodoDropDownList({ todoId, property, defaultValue, arrValues, allowApiM
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="cursor-pointer flex flex-nowrap text-nowrap text-xs sm:text-base">
+      <DropdownMenuTrigger className="w-full cursor-pointer flex flex-nowrap text-nowrap text-xs sm:text-base">
         <ChevronDown size={20} /> {defaultValue}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-primary-color text-tertiary-color">

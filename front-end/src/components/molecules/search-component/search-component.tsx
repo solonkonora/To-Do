@@ -64,7 +64,6 @@ export default function SearchComponent({ setLoadingTodos }: Props) {
         .then(({ data, message, status }) => {
           setTodos(data);
         })
-
         .finally(() => {
           setLoadingTodos(false);
         });
