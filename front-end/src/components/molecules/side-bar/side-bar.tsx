@@ -31,7 +31,7 @@ export default function Sidebar() {
           </div>
         </Link>
       ))}
-      <Link href="/logout" className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer bg-secondary-color p-2 hover:rounded-sm" >
+      <Link href="/logout" className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm" >
         <div className="flex flex-col items-center gap-4">
           <div className="w-[40px] h-[35px] rounded-sm">
             <LogOut className="text-tertiary-color" />
