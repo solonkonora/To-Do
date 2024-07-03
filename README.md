@@ -1,5 +1,7 @@
 ### R - DEVS TODO APP
 
+![logo](./readme-assets/logo.png)
+
 - __Visit backend guide__ [here](./back-end/README.md)
 
 - __Visit frontend guide__ [here](./front-end//README.md)
@@ -32,6 +34,18 @@ __Add New Todo [view](https://r-dev-to-do.vercel.app/todos/add-new/)__
 
 ![add new](./readme-assets/todo-add-new.png)
 
+### For Developers
+
+- To start both ends of the application, run
+
+    ```bash
+        # navigate into the front end and back end folders
+        # and run the following command for each end of the app
+        $ npm run dev # to start development server
+    ```
+
+---
+
 ## __Core Members__
 
 | [RashEdmundJR](https://github.com/rashjredmund) <br /> Lead developer & UI-UX developer     | [EwiJosepha](https://github.com/ewijosepha) <br /> Full stack developer       |
@@ -45,12 +59,3 @@ __Add New Todo [view](https://r-dev-to-do.vercel.app/todos/add-new/)__
 | [SolonkoNora](https://github.com/solonkonora) <br /> Front end developer
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![SolonkoNora](https://github.com/solonkonora.png)
-
-### For Developers
-
-- To start both ends of the application, run
-    ```bash
-        # navigate into the front end and back end folders
-        # and run the following command for each end of the app
-        $ npm run dev # to start development server
-    ```
