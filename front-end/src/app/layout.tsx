@@ -12,9 +12,61 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+const appDescription = "";
+
+const siteName = "R - Devs - Todo-app";
+
 export const metadata: Metadata = {
-  title: "Todo-app",
-  description: "A full stack todo app",
+  title: {
+    template: "%s | R - Devs",
+    default: siteName,
+  },
+  description: appDescription,
+  keywords: [
+    "todo",
+    "todo app",
+    "r-devs",
+    "rebase devs",
+    "rebase",
+    "rebase academy",
+    "rebase code camp",
+    "SEO",
+  ],
+  // manifest: "/manifest.json",
+  authors: [
+    {
+      url: "https://github.com/RashJrEdmund",
+      name: "Rash Edmund",
+    },
+    {
+      url: "https://github.com/EwiJosepha",
+      name: "EwiJosepha",
+    },
+  ],
+  openGraph: {
+    type: "website",
+    description: appDescription,
+    siteName,
+    title: {
+      template: "%s | R - Devs",
+      default: "R - Devs - Todo-app",
+    },
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: siteName,
+    // startupImage: []
+  },
+  twitter: {
+    card: "summary",
+    creator: "orashus",
+    description: appDescription,
+    title: {
+      template: "%s | R - Devs",
+      default: "R - Devs - Todo-app",
+    },
+  },
 };
 
 export default async function RootLayout({
@@ -51,4 +103,4 @@ export default async function RootLayout({
       </body>
     </html>
   );
-}
+};

@@ -1,28 +1,47 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useAppContext } from "./context/app-context";
-import { getCurrentUser } from "./context/api/context.api";
 import { LoadingPageSkeleton } from "@/components/molecules";
+import { useGetCurrentUser } from "./hooks";
+import { usePathname, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true);
-  const { setCurrentUser } = useAppContext();
+interface Props {
+  children: React.ReactNode;
+  /** 
+   * If strict is true, user will be navigated to login page if none is found.
+   */
+  strict?: boolean;
+}
 
-  useEffect(() => {
-    getCurrentUser()
-      .then(({ data, message, status }) => {
-        setCurrentUser(data);
-      })
-      .catch((er) => er)
-      .finally(() => setLoading(false));
-  }, []);
+function AuthProvider({ children, strict = false }: Props) {
+  const { loading, error, user } = useGetCurrentUser({
+    updateContextUser: true,
+  });
 
-  return loading ? (
+  const router = useRouter();
+  const pathname = usePathname();
+
+  if (loading) return (
     <LoadingPageSkeleton>
-      {/* Starting App */}
+      Mounting Data...
     </LoadingPageSkeleton>
-  ) : children;
+  );
+
+  if (strict && !user) {
+    router.replace("/login?next=" + pathname);
+
+    return (
+      <LoadingPageSkeleton>
+        Resolving Data...
+      </LoadingPageSkeleton>
+    )
+  }
+
+  return (
+    <Suspense>
+      {children}
+    </Suspense>
+  );
 };
 
 export {
