@@ -38,12 +38,16 @@ export default class HTTPCLIENT {
 
     if (base_path.trim()) {
       if (!base_path.startsWith("/") || base_path.endsWith("/"))
-        throw new Error('Base Path Must Start With A Slash "/" And End With No Slash "/" ');
+        throw new Error(
+          'Base Path Must Start With A Slash "/" And End With No Slash "/" '
+        );
 
       this._base_path = base_path;
     } else this._base_path = "";
 
-    this._base_url = API_BASE_URL?.endsWith("/") ? API_BASE_URL.slice(0, -1) : API_BASE_URL; // ensuring it doesn't end with a slash
+    this._base_url = API_BASE_URL?.endsWith("/")
+      ? API_BASE_URL.slice(0, -1)
+      : API_BASE_URL; // ensuring it doesn't end with a slash
 
     this._headers = { ...createDefaultHeaders(), ...base_headers };
   }
@@ -55,7 +59,7 @@ export default class HTTPCLIENT {
     }
 
     if (_url?.trim() && this._base_path && !_url?.startsWith("/")) {
-      throw new Error(`"${_url}" Must begin with a slash "/"`)
+      throw new Error(`"${_url}" Must begin with a slash "/"`);
     }
 
     return this._base_url + this._base_path + _url?.trim(); // if no base url is provided, then only the url passed by the user will be used.
@@ -64,7 +68,7 @@ export default class HTTPCLIENT {
   private async requestWithoutBody<T>(
     _url: string,
     method: HttpMethods = "GET",
-    _headers: Headers = {},
+    _headers: Headers = {}
   ): Promise<ApiReturnType<T>> {
     const url = this.mergeUrl(_url);
 
@@ -72,7 +76,7 @@ export default class HTTPCLIENT {
       const res = await fetch(url, {
         method,
         headers: {
-          "Authorization": `Bearer ${this.tokenService.getToken()}`,
+          Authorization: `Bearer ${this.tokenService.getToken()}`,
           ...this._headers,
           ..._headers,
         },
@@ -88,7 +92,9 @@ export default class HTTPCLIENT {
       };
     } catch (error) {
       // console.warn({ error })
-      throw new Error((error as { message?: string })?.message || "Something went wrong");
+      throw new Error(
+        (error as { message?: string })?.message || "Something went wrong"
+      );
     }
   }
 
@@ -96,14 +102,14 @@ export default class HTTPCLIENT {
     _url: string,
     _body: object,
     method: HttpMethods = "POST",
-    _headers: Headers = {},
+    _headers: Headers = {}
   ): Promise<ApiReturnType<T>> {
     const url = this.mergeUrl(_url);
 
     const res = await fetch(url, {
       method,
       headers: {
-        "Authorization": `Bearer ${this.tokenService.getToken()}`,
+        Authorization: `Bearer ${this.tokenService.getToken()}`,
         ...this._headers,
         ..._headers,
       },
@@ -161,7 +167,10 @@ export default class HTTPCLIENT {
    * @param {string} url optional, but required if no base url was provided
    * @param {Headers} headers optional
    */
-  public async GET<T>(url: string = "", headers?: Headers): Promise<ApiReturnType<T>> {
+  public async GET<T>(
+    url: string = "",
+    headers?: Headers
+  ): Promise<ApiReturnType<T>> {
     return this.requestWithoutBody<T>(url, "GET", headers);
   }
 
@@ -175,7 +184,7 @@ export default class HTTPCLIENT {
   public async POST<T>(
     url: string = "",
     body: object,
-    headers?: Headers,
+    headers?: Headers
   ): Promise<ApiReturnType<T>> {
     return this.requestWithBody(url, body, "POST", headers);
   }
@@ -190,7 +199,7 @@ export default class HTTPCLIENT {
   public async PUT<T>(
     url: string = "",
     body: object,
-    headers?: Headers,
+    headers?: Headers
   ): Promise<ApiReturnType<T>> {
     return this.requestWithBody(url, body, "PUT", headers);
   }
@@ -205,7 +214,7 @@ export default class HTTPCLIENT {
   public async PATCH<T>(
     url: string = "",
     body: object,
-    headers?: Headers,
+    headers?: Headers
   ): Promise<ApiReturnType<T>> {
     return this.requestWithBody(url, body, "PATCH", headers);
   }
@@ -216,7 +225,10 @@ export default class HTTPCLIENT {
    * @param {string} url optional, but required if no base url was provided
    * @param {Headers} headers optional
    */
-  public async DELETE<T>(url: string = "", headers?: Headers): Promise<ApiReturnType<T>> {
+  public async DELETE<T>(
+    url: string = "",
+    headers?: Headers
+  ): Promise<ApiReturnType<T>> {
     return this.requestWithoutBody(url, "DELETE", headers);
   }
 }

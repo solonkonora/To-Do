@@ -26,7 +26,7 @@ const useGetCurrentUser = (options?: Options) => {
       setLoading(false);
       setError("");
       return;
-    };
+    }
 
     getCurrentUser()
       .then(({ data, message, status }) => {
@@ -43,6 +43,4 @@ const useGetCurrentUser = (options?: Options) => {
   return { loading, error, user };
 };
 
-export {
-  useGetCurrentUser,
-};
+export { useGetCurrentUser };

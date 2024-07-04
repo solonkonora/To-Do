@@ -13,26 +13,30 @@ import { TodoSelectDropDown } from "@/components/molecules";
 
 interface Props {
   pageType: "Create-Page" | "Edit-Page";
-};
+}
 
 export default function CreateOrEditTodoPage({ pageType }: Props) {
   const params = useParams<{ todoId: string }>();
   const { currentUser, setTodos } = useAppContext();
 
-  const getDefaultEdits = useCallback((): Partial<Todo> => ({
-    userId: currentUser?.id || "",
-    todo: "",
-    priority: "Medium",
-    status: "In Progress",
-  }), [currentUser]);
+  const getDefaultEdits = useCallback(
+    (): Partial<Todo> => ({
+      userId: currentUser?.id || "",
+      todo: "",
+      priority: "Medium",
+      status: "In Progress",
+    }),
+    [currentUser]
+  );
 
   const [loading, setLoading] = useState<boolean>(pageType === "Edit-Page"); // if page type is edit page, then we'll fetch, hence loading is true from start
 
   const [editData, setEditData] = useState<Partial<Todo>>(getDefaultEdits());
 
-  const warnMissingField = (description: string) => toast.warning("Missing Field", {
-    description
-  });
+  const warnMissingField = (description: string) =>
+    toast.warning("Missing Field", {
+      description,
+    });
 
   const handleChange = (val: string, key: keyof Todo) => {
     setEditData((prev) => ({
@@ -44,9 +48,11 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!editData.todo?.trim()) return warnMissingField("Todo must not be assigned a value");
+    if (!editData.todo?.trim())
+      return warnMissingField("Todo must not be assigned a value");
 
-    if (!editData.priority?.trim()) return warnMissingField("Priority field must be assigned a value");
+    if (!editData.priority?.trim())
+      return warnMissingField("Priority field must be assigned a value");
 
     setLoading(true);
 
@@ -56,11 +62,13 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
         success: ({ data, status, message }) => {
           const { updatedAt, createdAt, id, userId, ...rest } = data;
 
-          setTodos(prev => prev.map(t => {
-            if (t.id === id) return data;
+          setTodos((prev) =>
+            prev.map((t) => {
+              if (t.id === id) return data;
 
-            return t;
-          }));
+              return t;
+            })
+          );
 
           setEditData((prev) => ({ ...prev, ...rest }));
 
@@ -107,7 +115,11 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
     if (pageType === "Edit-Page" && params.todoId) {
       toast.promise(() => getSingleTodo(params.todoId), {
         loading: "Getting prev todo ...",
-        success: ({ data: { updatedAt, createdAt, id, userId, ...rest }, status, message }) => {
+        success: ({
+          data: { updatedAt, createdAt, id, userId, ...rest },
+          status,
+          message,
+        }) => {
           setEditData((prev) => ({ ...prev, ...rest }));
 
           return "Task retrieved";
@@ -139,8 +151,13 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
         onSubmit={handleSubmit}
       >
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
-          <Label htmlFor="priority" className="w-full flex flex-col items-start justify-center gap-3">
-            <span className="font-semibold">Priority ({editData.priority})</span>
+          <Label
+            htmlFor="priority"
+            className="w-full flex flex-col items-start justify-center gap-3"
+          >
+            <span className="font-semibold">
+              Priority ({editData.priority})
+            </span>
 
             <TodoSelectDropDown
               property="Priority"
@@ -150,7 +167,10 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
             />
           </Label>
 
-          <Label htmlFor="status" className="w-full flex flex-col items-start justify-center gap-3">
+          <Label
+            htmlFor="status"
+            className="w-full flex flex-col items-start justify-center gap-3"
+          >
             <span className="font-semibold">Status ({editData.status})</span>
 
             <TodoSelectDropDown
@@ -163,7 +183,10 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
           </Label>
         </div>
 
-        <Label htmlFor="todo" className="w-full mx-auto flex flex-col items-start justify-center gap-4">
+        <Label
+          htmlFor="todo"
+          className="w-full mx-auto flex flex-col items-start justify-center gap-4"
+        >
           <span className="font-semibold">Todo</span>
 
           <textarea
@@ -187,4 +210,4 @@ export default function CreateOrEditTodoPage({ pageType }: Props) {
       </form>
     </main>
   );
-};
+}

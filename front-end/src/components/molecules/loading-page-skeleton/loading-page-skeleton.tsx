@@ -11,14 +11,18 @@ function ShimmerCard() {
 
       <Skeleton className="w-[90%] h-[35px] rounded-sm bg-tertiary-color" />
     </div>
-  )
+  );
 }
 
-export default function LoadingPageSkeleton({ children = null }: { children?: React.ReactNode }) {
+export default function LoadingPageSkeleton({
+  children = null,
+}: {
+  children?: React.ReactNode;
+}) {
   const pathName = usePathname();
 
   return (
-    <main className="fixed z-20 w-full min-h-screen flex flex-col items-start justify-start">
+    <main className="fixed top-0 left-0 z-20 w-full min-h-screen flex flex-col items-start justify-start">
       <Skeleton // acting as top bar
         className="w-full h-[min(20vh,_90px)] flex items-center justify-between p-8 bg-secondary-color rounded-none"
       >
@@ -36,9 +40,9 @@ export default function LoadingPageSkeleton({ children = null }: { children?: Re
             className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-between py-8 bg-primary-color rounded-none"
           >
             <div className="w-full flex flex-col items-center justify-start gap-6">
-              {
-                Array.from({ length: 3 }, (_, i) => i).map((index) => <ShimmerCard key={index} />)
-              }
+              {Array.from({ length: 3 }, (_, i) => i).map((index) => (
+                <ShimmerCard key={index} />
+              ))}
             </div>
             <ShimmerCard />
           </Skeleton>
@@ -50,8 +54,6 @@ export default function LoadingPageSkeleton({ children = null }: { children?: Re
       </div>
     </main>
   );
-};
+}
 
-export {
-  LoadingPageSkeleton,
-};
+export { LoadingPageSkeleton };

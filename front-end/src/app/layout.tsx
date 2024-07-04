@@ -12,7 +12,8 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-const appDescription = "Rebase Devs todo app. This app is the outcome of a collaboration, and a learning experience for the team, where we collaborated with, and outsourced one another";
+const appDescription =
+  "Rebase Devs todo app. This app is the outcome of a collaboration, and a learning experience for the team, where we collaborated with, and outsourced one another";
 
 const siteName = "R - Devs - Todo-app";
 
@@ -103,4 +104,4 @@ export default async function RootLayout({
       </body>
     </html>
   );
-};
+}

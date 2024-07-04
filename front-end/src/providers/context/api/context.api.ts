@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import HTTPCLIENT from "@/lib/http-client";
 import { User } from "./types";
@@ -6,9 +6,7 @@ import { User } from "./types";
 const httpClient = new HTTPCLIENT("/auth");
 
 const getCurrentUser = async () => {
-    return httpClient.GET<User>("/current-user");
+  return httpClient.GET<User>("/current-user");
 };
 
-export {
-    getCurrentUser,
-};
+export { getCurrentUser };
