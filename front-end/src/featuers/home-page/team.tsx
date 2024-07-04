@@ -50,6 +50,7 @@ export default function Team() {
             <Link href={getAccountUrl(teamsAvatar[currentImg].githubUsername)} className='group-hover:text-primary-color text-transparent ' target="_blank">{getAccountUrl(teamsAvatar[currentImg].githubUsername)}</Link>
           </div>
         </div>
+
         <div className="w-1/2 grid grid-cols-2 gap-4">
           {teamsAvatar.map(({ githubUsername }, index) => (
             index !== currentImg && (

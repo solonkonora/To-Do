@@ -10,6 +10,18 @@
 
 - [live deployment](https://r-dev-to-do.vercel.app/todos)
 
+### For Developers
+
+- To start both ends of the application, run
+
+    ```bash
+        # navigate into the front end and back end folders
+        # and run the following command for each end of the app
+        $ npm run dev # to start development server
+    ```
+
+---
+
 ### Let's Navigate the app
 
 __Home [view](https://r-dev-to-do.vercel.app/todos)__
@@ -33,18 +45,6 @@ __Delete Todo__
 __Add New Todo [view](https://r-dev-to-do.vercel.app/todos/add-new/)__
 
 ![add new](./readme-assets/todo-add-new.png)
-
-### For Developers
-
-- To start both ends of the application, run
-
-    ```bash
-        # navigate into the front end and back end folders
-        # and run the following command for each end of the app
-        $ npm run dev # to start development server
-    ```
-
----
 
 ## __Core Members__
 
