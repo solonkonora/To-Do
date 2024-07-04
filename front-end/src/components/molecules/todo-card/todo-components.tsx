@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "../../ui/select";
 
 import {
@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel
+  DropdownMenuLabel,
 } from "../../ui/dropdown-menu";
 
 import {
@@ -27,7 +27,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "../../ui/dialog";
 
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ interface SelectProps {
 
   defaultValue: string;
   onValueChange: (e: string) => void;
-};
+}
 
 interface ListProps {
   todoId: string;
@@ -53,7 +53,7 @@ interface ListProps {
   defaultValue: string;
   arrValues: string[];
   allowApiModifications?: boolean; // weather or not clicking any item on list should actually update todo
-};
+}
 
 function TodoSelectDropDown({
   property,
@@ -69,40 +69,46 @@ function TodoSelectDropDown({
         <SelectValue placeholder={`updated ${property.toLowerCase()}`} />
       </SelectTrigger>
       <SelectContent className="">
-        {
-          arrValues.map((key) => (
-            <SelectItem key={key} value={key}>
-              {key}
-            </SelectItem>
-          ))
-        }
+        {arrValues.map((key) => (
+          <SelectItem key={key} value={key}>
+            {key}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
-  )
-};
+  );
+}
 
-function TodoDropDownList({ todoId, property, defaultValue, arrValues, allowApiModifications = false }: ListProps) {
+function TodoDropDownList({
+  todoId,
+  property,
+  defaultValue,
+  arrValues,
+  allowApiModifications = false,
+}: ListProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { todos, setTodos } = useAppContext();
 
   const handleUpdate = (value: string) => {
     if (!allowApiModifications) return;
 
-    if (!todos.find(t => t.id === todoId)) return;
+    if (!todos.find((t) => t.id === todoId)) return;
 
     setLoading(true);
 
-    const update = { [property.toLowerCase()]: value }
+    const update = { [property.toLowerCase()]: value };
 
     toast.promise(() => editTodo(todoId, update), {
       loading: `Updating ${property} ...`,
       success: ({ data, message, status }) => {
-        setTodos(prev => prev.map(t => {
-          // updating only on the UI
-          if (t.id === todoId) return data;
+        setTodos((prev) =>
+          prev.map((t) => {
+            // updating only on the UI
+            if (t.id === todoId) return data;
 
-          return t;
-        }));
+            return t;
+          })
+        );
 
         return `${property} successfully updated`;
       },
@@ -119,25 +125,25 @@ function TodoDropDownList({ todoId, property, defaultValue, arrValues, allowApiM
         <ChevronDown size={20} /> {defaultValue}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-primary-color text-tertiary-color">
-        <DropdownMenuLabel>
-          {property}
-        </DropdownMenuLabel>
+        <DropdownMenuLabel>{property}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {
-          arrValues.map((v) => (
-            <DropdownMenuItem key={v} className="hover:bg-tertiary-color hover:text-primary-color"
-              onClick={() => handleUpdate(v)}
-              disabled={loading}
-            >
-              {v}
-              {v === defaultValue && <span className="h-[5px] w-[5px] inline-block rounded-full ml-2 bg-tertiary-color animate-pulse" />}
-            </DropdownMenuItem>
-          ))
-        }
+        {arrValues.map((v) => (
+          <DropdownMenuItem
+            key={v}
+            className="hover:bg-tertiary-color hover:text-primary-color"
+            onClick={() => handleUpdate(v)}
+            disabled={loading}
+          >
+            {v}
+            {v === defaultValue && (
+              <span className="h-[5px] w-[5px] inline-block rounded-full ml-2 bg-tertiary-color animate-pulse" />
+            )}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+}
 
 function TodoDeleteDialog({ todoId }: { todoId: string }) {
   const { setTodos } = useAppContext();
@@ -146,30 +152,27 @@ function TodoDeleteDialog({ todoId }: { todoId: string }) {
     toast.promise(() => deleteTodo(todoId), {
       loading: "Deleting ...",
       success: ({ message }) => {
-        setTodos(prev => prev.filter(task => task.id !== todoId));
+        setTodos((prev) => prev.filter((task) => task.id !== todoId));
 
         return message;
       },
       error: (er) => {
         return er?.message || "Something went wrong";
-      }
+      },
     });
   };
 
   return (
     <Dialog>
       <DialogTrigger>
-        <Trash
-          size={20}
-          className="cursor-pointer text-red-500"
-        />
+        <Trash size={20} className="cursor-pointer text-red-500" />
       </DialogTrigger>
       <DialogContent className="max-w-[min(96vw,_450px)] rounded-sm bg-primary-color text-tertiary-color border-none">
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription className="text-gray-300">
             This action cannot be undone. This will permanently delete your todo
-            and remove all it's data from our servers.
+            and remove all it&apos;s data from our servers.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="sm:justify-start gap-3">
@@ -179,17 +182,18 @@ function TodoDeleteDialog({ todoId }: { todoId: string }) {
             </Button>
           </DialogClose>
 
-          <Button type="button" variant="destructive" className="text-tertiary-color" onClick={handleDelete}>
+          <Button
+            type="button"
+            variant="destructive"
+            className="text-tertiary-color"
+            onClick={handleDelete}
+          >
             Delete this Todo
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-};
+  );
+}
 
-export {
-  TodoSelectDropDown,
-  TodoDropDownList,
-  TodoDeleteDialog,
-};
+export { TodoSelectDropDown, TodoDropDownList, TodoDeleteDialog };

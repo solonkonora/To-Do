@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
   onValueChange: (e: string) => void;
   defaultValue: string;
-};
+}
 
 function TodoDropDowns({
   property,
@@ -26,27 +26,29 @@ function TodoDropDowns({
   disabled = false,
 }: Props) {
   return (
-    <Select onValueChange={onValueChange} defaultValue={defaultValue} disabled={!!disabled}>
+    <Select
+      onValueChange={onValueChange}
+      defaultValue={defaultValue}
+      disabled={!!disabled}
+    >
       <SelectTrigger className="w-full">
-        <SelectValue placeholder={`update ${property.toLowerCase()}`} /* defaultValue={defaultValue} */ />
+        <SelectValue
+          placeholder={`update ${property.toLowerCase()}`} /* defaultValue={defaultValue} */
+        />
       </SelectTrigger>
 
       <SelectContent className="">
         {/* <SelectItem value={defaultValue}>
           {defaultValue}
         </SelectItem> */}
-        {
-          arrValues.map((key) => (
-            <SelectItem key={key} value={key}>
-              {key}
-            </SelectItem>
-          ))
-        }
+        {arrValues.map((key) => (
+          <SelectItem key={key} value={key}>
+            {key}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
-  )
-};
+  );
+}
 
-export {
-  TodoDropDowns,
-};
+export { TodoDropDowns };

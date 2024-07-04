@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 interface Props {
   children: React.ReactNode;
-  /** 
+  /**
    * If strict is true, user will be navigated to login page if none is found.
    */
   strict?: boolean;
@@ -21,29 +21,16 @@ function AuthProvider({ children, strict = false }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (loading) return (
-    <LoadingPageSkeleton>
-      Mounting Data...
-    </LoadingPageSkeleton>
-  );
+  if (loading)
+    return <LoadingPageSkeleton>Mounting Data...</LoadingPageSkeleton>;
 
   if (strict && !user) {
     router.replace("/login?next=" + pathname);
 
-    return (
-      <LoadingPageSkeleton>
-        Resolving Data...
-      </LoadingPageSkeleton>
-    )
+    return <LoadingPageSkeleton>Resolving Data...</LoadingPageSkeleton>;
   }
 
-  return (
-    <Suspense>
-      {children}
-    </Suspense>
-  );
-};
+  return <Suspense>{children}</Suspense>;
+}
 
-export {
-  AuthProvider
-};
+export { AuthProvider };

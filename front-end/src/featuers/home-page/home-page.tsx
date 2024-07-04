@@ -10,12 +10,17 @@ export default function HomePage() {
         <p className="text-primary-color font-bold text-3xl">R-Devs Todo App</p>
       </div>
 
-      <Image src="/assets/landing.svg" alt="My Icon" width={500} height={500}/>
+      <Image src="/assets/landing.svg" alt="My Icon" width={500} height={500} />
 
       <div className="flex flex-col w-[80%] items-center pb-10 border-b-2 border-background-primary-color">
-        <p className="text-secondary-color pt-10">Create track, and manage your daily tasks</p>
-    
-        <Link href="/todos" className="bg-primary-color text-white px-16 py-2 rounded-md mt-6">
+        <p className="text-secondary-color pt-10">
+          Create track, and manage your daily tasks
+        </p>
+
+        <Link
+          href="/todos"
+          className="bg-primary-color text-white px-16 py-2 rounded-md mt-6"
+        >
           Get Started
         </Link>
       </div>
@@ -27,4 +32,4 @@ export default function HomePage() {
       <Team />
     </main>
   );
-};
+}

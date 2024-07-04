@@ -11,7 +11,7 @@ import { tokenService } from "@/lib/token-service";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
-  pageType: "Login" | "Sign Up" // re-using same form for both pages
+  pageType: "Login" | "Sign Up"; // re-using same form for both pages
 }
 
 export default function LoginOrSignUpPage({ pageType }: Props) {
@@ -22,7 +22,10 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const nextPath = useMemo(() => searchParams.get("next") || "", [searchParams]);
+  const nextPath = useMemo(
+    () => searchParams.get("next") || "",
+    [searchParams]
+  );
 
   const handleLoginOrSignUp = async () => {
     // router.push(nextPath);
@@ -30,7 +33,7 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
     // return;
     if (!username || !password) {
       return toast.warning("Username and Password fields required");
-    };
+    }
 
     setLoading(true);
 
@@ -40,8 +43,7 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
     };
 
     if (pageType === "Login") {
-      toast.promise(
-        () => login(userData), {
+      toast.promise(() => login(userData), {
         loading: "Loading...",
         success: (res) => {
           const { data: token, status, message } = res;
@@ -58,11 +60,10 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         finally: () => setLoading(false),
       });
       return;
-    };
+    }
     // SIGN UP
 
-    toast.promise(
-      () => signUp(userData), {
+    toast.promise(() => signUp(userData), {
       loading: "Loading...",
       success: (res) => {
         const { data: token, status, message } = res;
@@ -77,7 +78,7 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         return er?.message || "Invalid username or password";
       },
       finally: () => setLoading(false),
-    })
+    });
   };
 
   return (
@@ -108,8 +109,13 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
         </div>
 
         <p className="w-fit py-5">
-          {pageType === "Login" ? "Don't have an account?" : "Already have an account"} {" "}
-          <Link href={pageType === "Login" ? "/signup" : "/login"} className="hover:underline font-semibold">
+          {pageType === "Login"
+            ? "Don't have an account?"
+            : "Already have an account"}{" "}
+          <Link
+            href={pageType === "Login" ? "/signup" : "/login"}
+            className="hover:underline font-semibold"
+          >
             {pageType === "Login" ? "SignUp" : "Login"}
           </Link>
         </p>

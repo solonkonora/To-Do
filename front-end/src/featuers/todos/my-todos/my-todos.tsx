@@ -14,10 +14,7 @@ export default function MyTodosPage() {
         setLoadingTodos={setLoadingTodos}
       />
 
-      <TodoDisplay
-        todos={todos}
-        loadingTodos={loadingTodos}
-      />
+      <TodoDisplay todos={todos} loadingTodos={loadingTodos} />
     </main>
   );
 }

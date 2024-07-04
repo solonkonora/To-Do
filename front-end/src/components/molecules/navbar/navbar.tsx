@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useMemo } from "react";
 import { TextLogo } from "../../ui/text-logo";
