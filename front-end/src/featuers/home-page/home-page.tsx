@@ -19,9 +19,11 @@ export default function HomePage() {
           Get Started
         </Link>
       </div>
-      <div className=" flex items-center pt-10">
+
+      <div className="flex items-center pt-10">
         <p className="text-primary-color text-4xl">Meet our Team</p>
       </div>
+
       <Team />
     </main>
   );
