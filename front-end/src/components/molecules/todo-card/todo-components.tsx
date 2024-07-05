@@ -55,7 +55,7 @@ interface ListProps {
   arrValues: string[];
   allowApiModifications?: boolean; // weather or not clicking any item on list should actually update todo
   onUpdateSuccessfull?: (todo: Todo) => void;
-};
+}
 
 function TodoSelectDropDown({
   property,
@@ -87,7 +87,7 @@ function TodoDropDownList({
   defaultValue,
   arrValues,
   onUpdateSuccessfull,
-  allowApiModifications = false
+  allowApiModifications = false,
 }: ListProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { todos, setTodos } = useAppContext();
@@ -104,9 +104,10 @@ function TodoDropDownList({
       success: ({ data, message, status }) => {
         if (onUpdateSuccessfull) onUpdateSuccessfull(data);
 
-        setTodos(prev => prev.map(t => {
-          // updating only on the UI
-          if (t.id === todoId) return data;
+        setTodos((prev) =>
+          prev.map((t) => {
+            // updating only on the UI
+            if (t.id === todoId) return data;
 
             return t;
           })

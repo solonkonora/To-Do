@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { tokenService } from "@/lib/token-service";
 import { useAppContext } from "@/providers/context/app-context";
@@ -21,11 +21,11 @@ const dashboardElements = [
 ];
 
 export default function Sidebar() {
-  const {setCurrentUser} = useAppContext()
+  const { setCurrentUser } = useAppContext();
   const router = useRouter();
 
   const handleLogout = () => {
-    tokenService.removeToken()
+    tokenService.removeToken();
 
     //set the current user to null
     setCurrentUser(null);
@@ -53,7 +53,10 @@ export default function Sidebar() {
         </Link>
       ))}
 
-      <button onClick={handleLogout} className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm" >
+      <button
+        onClick={handleLogout}
+        className="w-[90%] flex items-center justify-start gap-2 mt-[36rem] cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm"
+      >
         <div className="flex flex-col items-center gap-4">
           <div className="w-[40px] h-[35px] rounded-sm">
             <LogOut className="text-tertiary-color" />
