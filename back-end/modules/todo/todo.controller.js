@@ -154,7 +154,7 @@ const getTodos = async (req, res) => {
       data: null,
     });
   }
-}
+};
 
 const deleteOneTodo = async (req, res) => {
   try {
@@ -177,7 +177,7 @@ const deleteOneTodo = async (req, res) => {
       data: null,
     });
   }
-}
+};
 
 export {
   createTodo,

@@ -52,10 +52,6 @@ __Add New Todo [view](https://r-dev-to-do.vercel.app/todos/add-new/)__
 | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | ![Rash](https://github.com/rashjredmund.png)                                                | ![EwiJosepha](https://github.com/ewijosepha.png)                              |
 
-| [GaelTikeng](https://github.com/gaeltikeng) <br /> Front end developer                      | [FrckBrice](https://github.com/frckbrice) <br /> Front end developer          |
+| [GaelTikeng](https://github.com/gaeltikeng) <br /> Front end developer                      | [SolonkoNora](https://github.com/solonkonora) <br /> Front end developer      |
 | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| ![GaelTikeng](https://github.com/gaeltikeng.png)                                            | ![FrckBrice](https://github.com/frckbrice.png)                                |
-
-| [SolonkoNora](https://github.com/solonkonora) <br /> Front end developer
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![SolonkoNora](https://github.com/solonkonora.png)
+| ![GaelTikeng](https://github.com/gaeltikeng.png)                                            | ![SolonkoNora](https://github.com/solonkonora.png)

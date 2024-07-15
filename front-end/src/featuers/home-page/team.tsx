@@ -17,10 +17,6 @@ const teamsAvatar = [
     role: "role",
   },
   {
-    githubUsername: "FrckBrice",
-    role: "role",
-  },
-  {
     githubUsername: "SolonkoNora",
     role: "role",
   },
@@ -47,6 +43,7 @@ export default function Team() {
             layout="responsive"
             src={getAccountUrl(teamsAvatar[currentImg].githubUsername, true)}
           />
+
           <div className="group text-xl items-center p-2 hover:rounded-sm hover:cursor-pointer">
             <Link
               href={getAccountUrl(teamsAvatar[currentImg].githubUsername)}
@@ -73,6 +70,7 @@ export default function Team() {
                     width={500}
                     height={500}
                   />
+
                   <Link
                     href={getAccountUrl(githubUsername)}
                     target="_blank"

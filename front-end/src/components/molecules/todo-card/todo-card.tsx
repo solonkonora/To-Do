@@ -21,7 +21,7 @@ function TodoCardShimmer() {
       <div className="w-full flex flex-col gap-3 items-start justify-between">
         <Skeleton className="w-full h-[30px] md:h-[50px] text-sm sm:text-base" />
 
-        <div className="w-full flex justify-between flex-wrap sm:flex-nowrap gap-2 mt-4">
+        <div className="w-full max-w-[600px] flex justify-between flex-wrap sm:flex-nowrap gap-2 mt-4">
           <div className="w-full flex items-center justify-between gap-2 mr-4">
             <Skeleton className="w-full h-[15px] md:h-[22px] text-sm sm:text-base" />
 

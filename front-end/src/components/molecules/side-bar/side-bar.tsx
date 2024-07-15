@@ -10,15 +10,29 @@ import { toast } from "sonner";
 const dashboardElements = [
   {
     text: "Todos",
-    icon: <LayoutGrid className=" text-tertiary-color" />,
+    icon: LayoutGrid,
     href: "/todos",
   },
   {
     text: "Add Task",
-    icon: <Plus className="text-tertiary-color" />,
+    icon: Plus,
     href: "/todos/add-new",
   },
 ];
+
+interface NavButtonProps extends ComponentProps<"a"> {
+  //
+}
+
+function NavButton({ className = "", href = "", ...restProps }: NavButtonProps) {
+  return (
+    <Link
+      {...restProps}
+      href={href}
+      className={cn("w-[90%] flex items-center justify-start gap-4 cursor-pointer text-tertiary-color hover:bg-secondary-color p-2 hover:rounded-sm", className)}
+    />
+  )
+}
 
 export default function Sidebar() {
   const { setCurrentUser } = useAppContext();
@@ -36,20 +50,15 @@ export default function Sidebar() {
 
   return (
     <div className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-start gap-6 pt-8 bg-primary-color rounded-none">
-      {dashboardElements.map((textIcon) => (
+      {dashboardElements.map(({ text, href, icon: Icon }) => (
         <Link
-          className="w-[90%] flex items-center justify-start gap-4 cursor-pointer hover:bg-secondary-color p-2 hover:rounded-sm"
-          key={textIcon.href}
-          href={textIcon.href}
+          className="w-[90%] flex items-center justify-start gap-4 cursor-pointer text-tertiary-color hover:bg-secondary-color p-2 hover:rounded-sm"
+          key={text}
+          href={href}
         >
-          <div className="flex flex-col items-center gap-2">
-            <div className="w-[40px] h-[35px] rounded-sm">
-              <span>{textIcon.icon}</span>
-            </div>
-          </div>
-          <div className="w-[90%] h-[35px] rounded-sm text-tertiary-color">
-            <span>{textIcon.text}</span>
-          </div>
+          <Icon />
+
+          <span>{text}</span>
         </Link>
       ))}
 
