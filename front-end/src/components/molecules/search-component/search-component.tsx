@@ -10,6 +10,7 @@ import { TodoQuerySelectDropDown } from "./search-components";
 import { Priority, Status } from "@/featuers/todos/api/type";
 
 interface Props {
+  loadingTodos: boolean;
   setLoadingTodos: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -25,7 +26,7 @@ const getDefaults = (): SearchValues => ({
   status: "All",
 });
 
-export default function SearchComponent({ setLoadingTodos }: Props) {
+export default function SearchComponent({ loadingTodos, setLoadingTodos }: Props) {
   const [searchValues, setSearchValues] = useState<SearchValues>(getDefaults());
 
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -112,7 +113,9 @@ export default function SearchComponent({ setLoadingTodos }: Props) {
           className="w-full rounded-xl outline-none bg-transparent border-none py-[10px]"
           value={searchValues.todo}
           onChange={(e) => handleChange("todo", e.target.value)}
+          disabled={loadingTodos}
         />
+
         <SearchX
           size={30}
           className="text-primary-color cursor-pointer"
@@ -126,6 +129,7 @@ export default function SearchComponent({ setLoadingTodos }: Props) {
           property="priority"
           arrValues={["All", ...Object.values(Priority)]}
           defaultValue={searchValues.priority}
+          disabled={loadingTodos}
           onValueChange={(val) => handleChange("priority", val)}
         />
 
@@ -134,6 +138,7 @@ export default function SearchComponent({ setLoadingTodos }: Props) {
           property="status"
           arrValues={["All", ...Object.values(Status)]}
           defaultValue={searchValues.status}
+          disabled={loadingTodos}
           onValueChange={(val) => handleChange("status", val)}
         />
       </div>

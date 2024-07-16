@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Team from "./team";
+import { GetStartedCTA } from "./get-started";
 
 export default function HomePage() {
   return (
@@ -17,12 +18,7 @@ export default function HomePage() {
           Create track, and manage your daily tasks
         </p>
 
-        <Link
-          href="/todos"
-          className="bg-primary-color text-white px-16 py-2 rounded-md mt-6"
-        >
-          Get Started
-        </Link>
+        <GetStartedCTA />
       </div>
       <div className=" flex items-center pt-10">
         <p className="text-primary-color text-4xl">Meet Our Team</p>
