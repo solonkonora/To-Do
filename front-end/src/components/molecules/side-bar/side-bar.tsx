@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoutDialog } from "../logout-dialog/logout-dialog";
 import { useAppContext } from "@/providers/context/app-context";
+import { Logo } from "@/components/ui/logo";
 
 const dashboardElements = [
   {
@@ -45,7 +46,9 @@ export default function Sidebar() {
         )}
       >
         <div className="w-full h-fit flex flex-col items-center justify-start gap-6">
-          <span className="w-[90%] flex justify-end md:hidden">
+          <span className="w-[90%] flex items-center justify-between md:hidden">
+            <Logo className="shadow" />
+
             <X
               size={27}
               className="text-tertiary-color border rounded-sm"

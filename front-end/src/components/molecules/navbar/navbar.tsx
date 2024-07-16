@@ -5,9 +5,13 @@ import { Logo } from "../../ui/logo";
 import { useAppContext } from "@/providers/context/app-context";
 import Link from "next/link";
 import { CircleUser, Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { currentUser, setOpenNav } = useAppContext();
+
+  const pathname = usePathname();
 
   const href = useMemo(() => {
     if (!currentUser) return "/login";
@@ -17,11 +21,11 @@ export default function Navbar() {
 
   return (
     <nav className="w-full h-nav-height px-6 py-5 bg-secondary-color flex items-center justify-between">
-      <Logo className="hidden md:flex" />
+      <Logo className={cn(pathname.includes("/todos") ? "hidden md:flex" : "flex")} />
 
       <Menu
         size={27}
-        className="md:hidden text-primary-color"
+        className={cn(pathname.includes("/todos") ? "md:hidden text-primary-color" : "hidden")}
         onClick={() => setOpenNav(true)}
       />
 
