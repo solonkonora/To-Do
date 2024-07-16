@@ -10,6 +10,9 @@ interface AppContextType {
   setCurrentUser: Dispatch<SetStateAction<User | null>>;
   todos: Todo[];
   setTodos: Dispatch<SetStateAction<Todo[]>>;
+
+  openNav: boolean;
+  setOpenNav: Dispatch<SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -17,6 +20,7 @@ const AppContext = createContext<AppContextType | null>(null);
 function AppContextProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [openNav, setOpenNav] = useState<boolean>(false);
 
   return (
     <AppContext.Provider
@@ -25,6 +29,9 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
         setCurrentUser,
         todos,
         setTodos,
+
+        openNav,
+        setOpenNav
       }}
     >
       {children}

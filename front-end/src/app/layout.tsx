@@ -92,6 +92,7 @@ export default async function RootLayout({
               }}
               className="h-0"
             />
+
             <>
               <NavBar />
 

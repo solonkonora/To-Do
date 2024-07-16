@@ -35,6 +35,7 @@ function LogoutDialog({ children }: { children: React.ReactNode; }) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
+
       <DialogContent className="max-w-[min(96vw,_450px)] rounded-sm bg-primary-color text-tertiary-color border-none">
         <DialogHeader>
           <DialogTitle>You are about to be logged out?</DialogTitle>
