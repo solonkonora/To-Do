@@ -1,7 +1,7 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { TextLogo } from "@/components/ui/text-logo";
+import { Logo } from "@/components/ui/logo";
 import { usePathname } from "next/navigation";
 
 function ShimmerCard() {
@@ -26,7 +26,7 @@ export default function LoadingPageSkeleton({
       <Skeleton // acting as top bar
         className="w-full h-nav-height flex items-center justify-between p-8 bg-secondary-color rounded-none"
       >
-        <TextLogo />
+        <Logo />
 
         <div className="flex items-center justify-center gap-2">
           <Skeleton className="h-[40px] w-[40px] rounded-full" />
