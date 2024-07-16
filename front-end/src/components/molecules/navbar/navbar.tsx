@@ -4,23 +4,19 @@ import { useMemo } from "react";
 import { TextLogo } from "../../ui/text-logo";
 import { useAppContext } from "@/providers/context/app-context";
 import Link from "next/link";
-import { CircleUser, User, UserRoundX, UserX } from "lucide-react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { CircleUser } from "lucide-react";
 
 export default function Navbar() {
   const { currentUser } = useAppContext();
 
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   const href = useMemo(() => {
     if (!currentUser) return "/login";
 
-    return `${pathname}${searchParams.toString() ? "?" + searchParams.toString() : ""}`;
+    return "/todos";
   }, [currentUser]);
 
   return (
-    <nav className="w-full h-[min(20vh,_90px)] px-6 py-5 bg-secondary-color flex items-center justify-between">
+    <nav className="w-full h-nav-height px-6 py-5 bg-secondary-color flex items-center justify-between">
       <TextLogo />
 
       <Link

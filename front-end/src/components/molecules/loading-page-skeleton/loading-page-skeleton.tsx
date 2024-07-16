@@ -24,7 +24,7 @@ export default function LoadingPageSkeleton({
   return (
     <main className="fixed top-0 left-0 z-20 w-full min-h-screen flex flex-col items-start justify-start">
       <Skeleton // acting as top bar
-        className="w-full h-[min(20vh,_90px)] flex items-center justify-between p-8 bg-secondary-color rounded-none"
+        className="w-full h-nav-height flex items-center justify-between p-8 bg-secondary-color rounded-none"
       >
         <TextLogo />
 
@@ -34,7 +34,7 @@ export default function LoadingPageSkeleton({
         </div>
       </Skeleton>
 
-      <div className="w-full min-h-[calc(100vh_-_min(20vh,_90px))] hidden md:flex items-stretch justify-start">
+      <div className="w-full min-h-safe-height hidden md:flex items-stretch justify-start">
         {pathName.includes("todos") && ( // only adding sibebar shimmer if we are in the /todos/... path
           <Skeleton // acting as sidebar
             className="w-[40vw] max-w-[300px] hidden md:flex flex-col items-center justify-between py-8 bg-primary-color rounded-none"
@@ -44,6 +44,7 @@ export default function LoadingPageSkeleton({
                 <ShimmerCard key={index} />
               ))}
             </div>
+
             <ShimmerCard />
           </Skeleton>
         )}

@@ -66,20 +66,25 @@
   }
 }
 
+:root {
+  /* TAILWIND EXTENSIONS */
+  --safe-height: calc(100vh - min(20vh, 90px));
+  --nav-height: min(20vh, 90px);
+}
+
 @layer base {
   .border-border {
     /* Your declarations here. */
   }
 
-  .bg-background {
-  }
+  .bg-background {}
 
-  .text-foreground {
-  }
+  .text-foreground {}
 
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

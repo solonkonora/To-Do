@@ -95,7 +95,7 @@ export default async function RootLayout({
             <>
               <NavBar />
 
-              <div className="w-full min-h-[calc(100vh_-_min(20vh,_90px))] flex items-stretch justify-center">
+              <div className="w-full min-h-safe-height flex items-stretch justify-center">
                 {children}
               </div>
             </>
