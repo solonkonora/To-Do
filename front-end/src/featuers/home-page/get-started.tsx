@@ -14,8 +14,6 @@ function GetStartedCTA() {
       Get Started
     </Link>
   );
-};
+}
 
-export {
-  GetStartedCTA,
-};
+export { GetStartedCTA };

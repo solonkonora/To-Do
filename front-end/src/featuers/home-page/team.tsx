@@ -26,7 +26,9 @@ const getAccountUrl = (username: string, image: boolean = false) =>
   `https://github.com/${username}${image ? ".png" : ""}`;
 
 export default function Team() {
-  const [currentMember, setCurrentMember] = useState<typeof TeamsAvatar[number]>(TeamsAvatar[0]);
+  const [currentMember, setCurrentMember] = useState<
+    (typeof TeamsAvatar)[number]
+  >(TeamsAvatar[0]);
 
   return (
     <main className="w-full bg-primary-color mt-10 gap-4 pt-20 pb-20">
@@ -52,30 +54,28 @@ export default function Team() {
         </div>
 
         <div className="w-full grid grid-cols-2 gap-4">
-          {TeamsAvatar.map(
-            ({ githubUsername, role }, index) => (
-              <div
-                key={index}
-                className="cursor-pointer md:min-w-[100%]"
-                onClick={() => setCurrentMember({ githubUsername, role })}
-              >
-                <Image
-                  src={getAccountUrl(githubUsername, true)}
-                  alt="My Avatar"
-                  width={500}
-                  height={500}
-                />
+          {TeamsAvatar.map(({ githubUsername, role }, index) => (
+            <div
+              key={index}
+              className="cursor-pointer md:min-w-[100%]"
+              onClick={() => setCurrentMember({ githubUsername, role })}
+            >
+              <Image
+                src={getAccountUrl(githubUsername, true)}
+                alt="My Avatar"
+                width={500}
+                height={500}
+              />
 
-                <Link
-                  href={getAccountUrl(githubUsername)}
-                  target="_blank"
-                  className="text-secondary-color cursor-pointer font-bold p-3"
-                >
-                  {githubUsername}
-                </Link>
-              </div>
-            )
-          )}
+              <Link
+                href={getAccountUrl(githubUsername)}
+                target="_blank"
+                className="text-secondary-color cursor-pointer font-bold p-3"
+              >
+                {githubUsername}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </main>

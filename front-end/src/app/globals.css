@@ -72,8 +72,8 @@
   --nav-height: min(20vh, 90px);
 
   /* COLORS */
-  --secondary-color: #83C5BE;
-  --primary-color: #006D77;
+  --secondary-color: #83c5be;
+  --primary-color: #006d77;
   --tertiary-color: #fff;
 }
 
@@ -82,9 +82,11 @@
     /* Your declarations here. */
   }
 
-  .bg-background {}
+  .bg-background {
+  }
 
-  .text-foreground {}
+  .text-foreground {
+  }
 
   * {
     @apply border-border;

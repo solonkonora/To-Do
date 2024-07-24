@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { tokenService } from "@/lib/token-service";
 
-function LogoutDialog({ children }: { children: React.ReactNode; }) {
+function LogoutDialog({ children }: { children: React.ReactNode }) {
   const { setTodos, setCurrentUser } = useAppContext();
   const router = useRouter();
 
@@ -32,15 +32,14 @@ function LogoutDialog({ children }: { children: React.ReactNode; }) {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent className="max-w-[min(96vw,_450px)] rounded-sm bg-primary-color text-tertiary-color border-none">
         <DialogHeader>
           <DialogTitle>You are about to be logged out?</DialogTitle>
           <DialogDescription className="text-gray-300">
-            You will logged out and won&apos;t have access to you todos unless you logged in again. Proceed?
+            You will logged out and won&apos;t have access to you todos unless
+            you logged in again. Proceed?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="sm:justify-start gap-3">
@@ -64,6 +63,4 @@ function LogoutDialog({ children }: { children: React.ReactNode; }) {
   );
 }
 
-export {
-  LogoutDialog,
-};
+export { LogoutDialog };
