@@ -32,7 +32,10 @@ export default function Sidebar() {
   return (
     <>
       <div
-        className={cn("fixed top-0 left-0 w-full h-full z-20", openNav ? "block md:hidden" : "hidden")} // acting as overlay
+        className={cn(
+          "fixed top-0 left-0 w-full h-full z-20",
+          openNav ? "block md:hidden" : "hidden"
+        )} // acting as overlay
         style={{
           background: "linear-gradient(to bottom, #006D776f, #0000006f)",
         }}
@@ -58,7 +61,10 @@ export default function Sidebar() {
 
           {dashboardElements.map(({ text, href, icon: Icon }) => (
             <Link
-              className={cn("w-[90%] flex items-center justify-start gap-4 cursor-pointer text-tertiary-color hover:bg-secondary-color p-2 rounded-sm", pathname === href ? "bg-secondary-color" : "")}
+              className={cn(
+                "w-[90%] flex items-center justify-start gap-4 cursor-pointer text-tertiary-color hover:bg-secondary-color p-2 rounded-sm",
+                pathname === href ? "bg-secondary-color" : ""
+              )}
               key={text}
               href={href}
               onClick={closeSideBar}

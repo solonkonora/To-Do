@@ -21,11 +21,17 @@ export default function Navbar() {
 
   return (
     <nav className="w-full h-nav-height px-6 py-5 bg-secondary-color flex items-center justify-between">
-      <Logo className={cn(pathname.includes("/todos") ? "hidden md:flex" : "flex")} />
+      <Logo
+        className={cn(pathname.includes("/todos") ? "hidden md:flex" : "flex")}
+      />
 
       <Menu
         size={27}
-        className={cn(pathname.includes("/todos") ? "md:hidden text-primary-color" : "hidden")}
+        className={cn(
+          pathname.includes("/todos")
+            ? "md:hidden text-primary-color"
+            : "hidden"
+        )}
         onClick={() => setOpenNav(true)}
       />
 

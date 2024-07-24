@@ -79,7 +79,7 @@ const config = {
       spacing: {
         "safe-height": "var(--safe-height)",
         "nav-height": "var(--nav-height)",
-      }
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

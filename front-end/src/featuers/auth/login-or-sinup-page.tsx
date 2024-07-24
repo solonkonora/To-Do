@@ -84,7 +84,10 @@ export default function LoginOrSignUpPage({ pageType }: Props) {
 
   return (
     <main className="w-full flex items-center justify-center">
-      <form onSubmit={handleLoginOrSignUp} className="border w-[90%] max-w-[500px] md:max-w-[620px] flex flex-col items-center justify-between rounded text-primary-color py-8 border-secondary-color">
+      <form
+        onSubmit={handleLoginOrSignUp}
+        className="border w-[90%] max-w-[500px] md:max-w-[620px] flex flex-col items-center justify-between rounded text-primary-color py-8 border-secondary-color"
+      >
         <div className="w-full flex flex-col md:flex-row justify-between gap-5 mx-auto p-5">
           <div className="w-full flex flex-col items-start justify-center gap-1.5">
             <Label htmlFor="username">Username</Label>

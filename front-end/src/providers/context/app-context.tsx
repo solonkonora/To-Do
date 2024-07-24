@@ -31,7 +31,7 @@ function AppContextProvider({ children }: { children: React.ReactNode }) {
         setTodos,
 
         openNav,
-        setOpenNav
+        setOpenNav,
       }}
     >
       {children}
